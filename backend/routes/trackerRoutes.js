@@ -45,22 +45,28 @@ router.put("/update-expense-score", async (req, res) => {
   });
 
 
-router.put("/update-due-date", async (req, res) => {
+  router.put("/update-due-date", async (req, res) => {
     try {
-      const { email, dueDate } = req.body;
+      const { email,sharedWith, dueDate } = req.body;
 //we have to make sure dueDate format matches with what mongo db accepts
       if (!email || dueDate === undefined) {
         return res.status(400).json({
           success: false,
-          message: "Email and expenseScore are required",
+          message: "Email and m due date are required",
         });
       }
  
-      const updatedUser = await User.findOneAndUpdate(
-        { email: email },
+      const updatedUser = await Expense.findOneAndUpdate(
+        {
+          $and: [
+            { email }, 
+            { "sharedWith.email": sharedWith } // shared with email
+          ]
+        },
         { dueDate }, 
         { new: true } 
       );
+      
   
     
       if (!updatedUser) {
@@ -84,8 +90,6 @@ router.put("/update-due-date", async (req, res) => {
       });
     }
   });
-
-
 router.post("/", async (req, res) => {
     try {
         const { userEmail, title, amount, category, dueDate, description, sharedWith } = req.body;
