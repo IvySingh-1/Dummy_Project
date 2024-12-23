@@ -47,7 +47,7 @@ router.put("/update-expense-score", async (req, res) => {
 
   router.put("/update-due-date", async (req, res) => {
     try {
-      const { email,sharedWith, dueDate } = req.body;
+      const { userEmail,sharedWith, dueDate } = req.body;
 //we have to make sure dueDate format matches with what mongo db accepts
       if (!email || dueDate === undefined) {
         return res.status(400).json({
@@ -59,11 +59,11 @@ router.put("/update-expense-score", async (req, res) => {
       const updatedUser = await Expense.findOneAndUpdate(
         {
           $and: [
-            { email }, 
+            { userEmail }, 
             { "sharedWith.email": sharedWith } // shared with email
           ]
         },
-        { dueDate }, 
+        { dueDate: new Date(dueDate)}, 
         { new: true } 
       );
       
@@ -89,7 +89,7 @@ router.put("/update-expense-score", async (req, res) => {
         message: "Internal server error",
       });
     }
-  });
+  }); 
 router.post("/", async (req, res) => {
     try {
         const { userEmail, title, amount, category, dueDate, description, sharedWith } = req.body;
@@ -106,7 +106,7 @@ router.post("/", async (req, res) => {
             title,
             amount,
             category,
-            dueDate,
+            dueDate: new Date(dueDate),
             description,
             sharedWith,
         });
