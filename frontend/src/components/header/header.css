@@ -1,0 +1,15 @@
+@import url('https://fonts.googleapis.com/css2?family=Eater&family=Kablammo&display=swap');
+
+.Brand {
+    font-family: "Kablammo", serif;
+    font-size: 30px;
+
+
+}
+
+.tabs {
+    /* background-color: transparent; */
+    font-family: "Eater", serif;
+    font-weight: 400;
+    font-style: normal;
+}

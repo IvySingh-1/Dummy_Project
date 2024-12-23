@@ -9,12 +9,10 @@ function App() {
   const [count, setCount] = useState(0)
 
   return (
-    <div className='bg'>
     <div>
       <Header/>
       <Home/>
       <About/>
-    </div>
     </div>
   )
 }
