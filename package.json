@@ -4,12 +4,14 @@
   "description": "Expense Tracker",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "nodemon server.js"
   },
   "type": "module",
   "author": "Debuggy bells",
   "license": "ISC",
   "dependencies": {
+    "body-parser": "^1.20.3",
     "cookie-parser": "^1.4.7",
     "cors": "^2.8.5",
     "crypto-js": "^4.2.0",
@@ -17,6 +19,7 @@
     "express": "^4.21.2",
     "jsonwebtoken": "^9.0.2",
     "mongoose": "^8.9.2",
+    "nodemon": "^3.1.9",
     "path": "^0.12.7"
   }
 }

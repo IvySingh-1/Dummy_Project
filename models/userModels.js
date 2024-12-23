@@ -1,4 +1,4 @@
-const mongoose = require('mongoose');
+import mongoose from "mongoose";
 
 const userSchema = new mongoose.Schema({
     name: {
@@ -24,20 +24,15 @@ const userSchema = new mongoose.Schema({
         required: [true, "Password is required"],
         minlength: 6,
     },
-    expenseScore:{type:Number, required:true},
-}, 
-
-{
-    timestamps: true, 
+    expenseScore: {
+        type: Number,
+        required: true,
+        default: 0, // Default value for new users
+    },
+}, {
+    timestamps: true,
 });
 
 
-userSchema.pre('save', async function (next) {
-    if (!this.isModified('password')) return next();
-    const bcrypt = require('bcryptjs');
-    this.password = await bcrypt.hash(this.password, 12);
-    next();
-});
-
-const User = mongoose.model('User', userSchema);
-module.exports = User;
+const User = mongoose.model("User", userSchema);
+export default User;
