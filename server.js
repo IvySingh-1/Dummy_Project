@@ -1,9 +1,8 @@
 import express from "express";
 import cookieParser from "cookie-parser";
 import cors from "cors";
-import jwt from "jsonwebtoken";
-import path from "path";
-import authRoutes from './routes/authRoutes.js'; // Use `import` for ES modules
+import authRoutes from './routes/authRoutes.js'; 
+import trackerRoutes from "./routes/trackerRoutes.js";
 import db from "./db.js";
 
 const app = express();
@@ -16,7 +15,7 @@ app.use(cors({
 }));
 
 app.use("/auth", authRoutes);
-
+app.use("/api", trackerRoutes);
 app.get("/", (req, res) => {
     res.send("Welcome to the Express app!");
 });

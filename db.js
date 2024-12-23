@@ -1,6 +1,8 @@
 import mongoose from "mongoose";
+import dotenv from "dotenv";
 
-const mongoURL = "mongodb://127.0.0.1:27017/expense_Tracker";
+dotenv.config()
+const mongoURL = process.env.mongoURL;
 
 mongoose.connect(mongoURL, {
     useNewUrlParser: true,
