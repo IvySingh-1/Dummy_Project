@@ -1,9 +1,11 @@
 import React from "react";
 import "./home.css";
-
+import About from './../about/About'
+import Header from './../header/Header'
 const Home = () => {
   return (
     <div>
+        <Header/>
       <div className="jumbotron">
         <h1 className="display-4">Hello, world!</h1>
         <p className="lead">
@@ -19,6 +21,7 @@ const Home = () => {
           Learn more
         </a>
       </div>
+      <About/>
     </div>
   );
 };
