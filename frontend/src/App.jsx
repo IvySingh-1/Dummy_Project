@@ -1,18 +1,19 @@
 import { useState } from 'react'
 import 'bootstrap/dist/css/bootstrap.min.css';
 import './App.css'
-import Header from './components/header/Header'
 import Home from './components/home/Home'
-import About from './components/about/About'
 
+import Expense from './components/expense/Expense';
+import { BrowserRouter, Route, Routes } from "react-router-dom";
 function App() {
-  const [count, setCount] = useState(0)
 
   return (
+    <div className='bg'>
     <div>
       <Header/>
       <Home/>
       <About/>
+    </div>
     </div>
   )
 }
