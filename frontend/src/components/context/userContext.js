@@ -30,7 +30,7 @@ const [loading, setLoading] = useState(true);
     }, []);
 
   return (
-    <UserContext.Provider value={{ userDetails, setUserDetails, loading }}>
+    <UserContext.Provider value={{ userDetails, setUserDetails, loading, setLoading }}>
       {children}
     </UserContext.Provider>
   );

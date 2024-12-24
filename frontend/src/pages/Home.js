@@ -12,12 +12,12 @@ const charAtom = atom({
 })
 
 const Home = () => {
-  const { userDetails, setUserDetails } = useUserContext();
+  const { userDetails, setLoading } = useUserContext();
   
     const handleLogout = () => {
   
       Cookies.remove("token");
-    
+    setLoading(false);
       window.location.href = "/login";
     };
     useEffect(() => {

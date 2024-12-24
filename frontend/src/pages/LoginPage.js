@@ -3,14 +3,14 @@ import Cookies from "js-cookie";
 import {jwtDecode} from "jwt-decode";
 
 import Login from "./../components/Auth/Login";
-
+import { useUserContext } from "./../components/context/userContext";
 const LoginPage = () => {
   const [userData, setUserData] = useState({
     Email:"",
     name:"",
     ExpenseScore:0
   });
-
+ const { userDetails, setUserDetails } = useUserContext();
   useEffect(() => {
     
     const token = Cookies.get("token"); 

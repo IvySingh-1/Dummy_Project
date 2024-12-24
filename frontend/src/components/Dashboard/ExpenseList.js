@@ -3,7 +3,7 @@ import { fetchExpenses } from "../../utils/api";
 import { useUserContext } from "./../context/userContext";
 import { API } from "./../../utils/api";
 const ExpenseList = () => {
-  const { userDetails } = useUserContext();
+  const { userDetails, loading } = useUserContext();
   const [expenses, setExpenses] = useState([]);
   const [editIndex, setEditIndex] = useState(null); // which expense is being edited
   const [newDueDate, setNewDueDate] = useState("");
@@ -30,7 +30,9 @@ const ExpenseList = () => {
   };
 
   useEffect(() => {
-    getExpenses();
+    if (!loading && userDetails) {
+      getExpenses();
+    }
   }, []);
 
   //Filters
@@ -98,54 +100,56 @@ const ExpenseList = () => {
   };
   return (
     <div className="my-4">
-<div>
-     
-      <div className="flex flex-wrap gap-4 justify-center mb-6">
-        {/* Categories */}
-        <div>
-          <h3 className="text-lg font-semibold mb-2">Categories</h3>
-          <div className="flex gap-2">
-            {categories.map((category) => (
-              <button
-                key={category}
-                onClick={() => handleCategoryChange(category)}
-                className={`px-4 py-2 rounded-lg font-medium ${
-                  selectedCategories.includes(category)
-                    ? "bg-blue-500 text-white"
-                    : "bg-gray-200 hover:bg-blue-100"
-                }`}
-              >
-                {category}
-              </button>
-            ))}
+      <div>
+        <div className="flex flex-wrap gap-4 justify-center mb-6">
+          {/* Categories */}
+          <div>
+            <h3 className="text-lg font-semibold mb-2">Categories</h3>
+            <div className="flex gap-2">
+              {categories.map((category) => (
+                <button
+                  key={category}
+                  onClick={() => handleCategoryChange(category)}
+                  className={`px-4 py-2 rounded-lg font-medium ${
+                    selectedCategories.includes(category)
+                      ? "bg-blue-500 text-white"
+                      : "bg-gray-200 hover:bg-blue-100"
+                  }`}
+                >
+                  {category}
+                </button>
+              ))}
+            </div>
           </div>
-        </div>
 
-        {/* Status */}
-        <div>
-          <h3 className="text-lg font-semibold mb-2">Status</h3>
-          <div className="flex gap-2">
-            {statuses.map((status) => (
-              <button
-                key={status}
-                onClick={() => handleStatusChange(status)}
-                className={`px-4 py-2 rounded-lg font-medium ${
-                  selectedStatuses.includes(status)
-                    ? "bg-green-500 text-white"
-                    : "bg-gray-200 hover:bg-green-100"
-                }`}
-              >
-                {status}
-              </button>
-            ))}
+          {/* Status */}
+          <div>
+            <h3 className="text-lg font-semibold mb-2">Status</h3>
+            <div className="flex gap-2">
+              {statuses.map((status) => (
+                <button
+                  key={status}
+                  onClick={() => handleStatusChange(status)}
+                  className={`px-4 py-2 rounded-lg font-medium ${
+                    selectedStatuses.includes(status)
+                      ? "bg-green-500 text-white"
+                      : "bg-gray-200 hover:bg-green-100"
+                  }`}
+                >
+                  {status}
+                </button>
+              ))}
+            </div>
           </div>
         </div>
-      </div>
-      <h2 className="text-lg font-bold mt-8">Expenses</h2>
+        <h2 className="text-lg font-bold mt-8">Expenses</h2>
       </div>
       <ul>
         {filteredData.map((expense, index) => (
-          <li key={expense._id} className="py-2 bg-gray-100 p-10 rounded-xl border-2 border-blue-200 md:w-1/2">
+          <li
+            key={expense._id}
+            className="py-2 bg-gray-100 p-10 rounded-xl border-2 border-blue-200 md:w-1/2"
+          >
             <span>
               {expense.title} - {expense.amount}rs. Category: {expense.category}
             </span>
@@ -153,9 +157,11 @@ const ExpenseList = () => {
             <ul>
               {expense.sharedWith.map((sharedWith) => {
                 return (
-                  <li key={sharedWith._id} >
+                  <li key={sharedWith._id}>
                     <span>Shared With: {sharedWith.email}</span>
-                    <span className="mx-2 font-medium">Type: {sharedWith.type}</span>
+                    <span className="mx-2 font-medium">
+                      Type: {sharedWith.type}
+                    </span>
                     <span className="pr-2">Status: {sharedWith.status}</span>
                     <br />
                     <span>
