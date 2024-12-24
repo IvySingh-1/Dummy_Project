@@ -1,18 +1,19 @@
 import express from "express";
 import User from "./../models/userModels.js";
-
+import bcrypt from "bcrypt"
+import jwt from "jsonwebtoken"
 const router = express.Router();
-
 // POST - Create a new user
 router.post("/", async (req, res) => {
   try {
       const { name, email, password, expenseScore = 0 } = req.body;
+      const hashedPassword = await bcrypt.hash(password, 10);
 
       // Create new user object
       const newUser = new User({
           name,
           email,
-          password,
+          password:hashedPassword,
           expenseScore, // Defaulted to 0 if not provided
       });
 
@@ -45,7 +46,7 @@ router.post("/login", async (req, res) => {
     const { email, password } = req.body;
   
     try {
-      const user = await User.findOne({ Email });
+      const user = await User.findOne({ email });
   
       if (!user) {
         return res.status(404).json({
@@ -54,13 +55,9 @@ router.post("/login", async (req, res) => {
         });
       }
   
-  //use bcrypt logic here to decrypt the password
-      const decryptedPassword = CryptoJS.AES.decrypt(
-        user.password,
-        process.env.CRYPTO_JS_KEY
-      ).toString(CryptoJS.enc.Utf8);
-  
-      if (password !== decryptedPassword) {
+      const isPasswordValid = await bcrypt.compare(password, user.password);
+      console.log(isPasswordValid)
+      if (!isPasswordValid) {
         return res.status(401).json({
           success: false,
           message: "Wrong Password",
