@@ -1,7 +1,32 @@
-import React from "react";
-import Login from "../components/Login";
+import React, { useEffect, useState } from "react";
+import Cookies from "js-cookie";
+import {jwtDecode} from "jwt-decode";
+
+import Login from "./../components/Auth/Login";
 
 const LoginPage = () => {
+  const [userData, setUserData] = useState({
+    Email:"",
+    name:"",
+    ExpenseScore:0
+  });
+
+  useEffect(() => {
+    
+    const token = Cookies.get("token"); 
+    if (token) {
+      try {
+        
+        const {Email,name,ExpenseScore} = jwtDecode(token);
+        setUserData({Email,name,ExpenseScore}); 
+        
+      } catch (error) {
+        console.error("Invalid token:", error);
+      }
+    } else {
+      console.log("No token found in cookies.");
+    }
+  }, []);
   const handleLogin = (userData) => {
     // Handle successful login (store user data, redirect, etc.)
     console.log("Logged in user:", userData);

@@ -1,16 +1,18 @@
-import { useState } from "react";
+import { useState} from "react";
 import { loginUser } from "../../utils/api";
-
+import { useNavigate } from "react-router-dom";
 const Login = ({ onLogin }) => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-
+  const navigate = useNavigate();
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
       const { data } = await loginUser({ email, password });
       alert("Login successful");
+
       onLogin(data);
+      navigate("/");
     } catch (err) {
       alert(err.response?.data?.message || "Login failed");
     }

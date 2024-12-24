@@ -2,17 +2,31 @@ import { useState } from "react";
 import { addExpense } from "../../utils/api";
 
 const AddExpense = ({ onExpenseAdded }) => {
-  const [title, setTitle] = useState("");
-  const [amount, setAmount] = useState("");
-  const [category, setCategory] = useState("");
-  const [dueDate, setDueDate] = useState("");
-
+  const userEmail = "abcjohn@gmail.com"
+ const [formData, setFormData] = useState({
+    userEmail,
+    sharedEmail: "",
+    name: "",
+    amount: "",
+    dueDate: "",
+    title:"",
+    description:"",
+    category:""
+  });
+  const handleChange = (e) => {
+    const { name, value } = e.target;
+    setFormData({
+      ...formData,
+      [name]: value,
+    });
+  };
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      const { data } = await addExpense({ title, amount, category, dueDate });
-      alert("Expense added");
-      onExpenseAdded(data);
+      const res = await addExpense(formData);
+      console.log(res);
+      if(res.status === 201) alert("Expense added");
+      // onExpenseAdded(data);
     } catch (err) {
       alert(err.response?.data?.message || "Failed to add expense");
     }
@@ -24,26 +38,47 @@ const AddExpense = ({ onExpenseAdded }) => {
       <input
         type="text"
         placeholder="Title"
+        name="title"
         className="border w-full p-2 mb-2"
-        value={title}
-        onChange={(e) => setTitle(e.target.value)}
+        value={formData.title}
+          onChange={(e)=>handleChange(e)}
       />
+      <input
+        type="text"
+        name="description"
+        placeholder="Description"
+        className="border w-full p-2 mb-2"
+        
+        value={formData.description}
+        onChange={handleChange}
+      />
+              <input
+          type="text"
+          name="sharedEmail"
+          placeholder="Person's email"
+           className="border w-full p-2 mb-2"
+           value={formData.sharedEmail}
+           onChange={handleChange}
+        />
       <input
         type="number"
         placeholder="Amount"
+        name="amount"
         className="border w-full p-2 mb-2"
-        value={amount}
-        onChange={(e) => setAmount(e.target.value)}
+        value={formData.amount}
+        onChange={handleChange}
       />
       <input
         type="date"
         className="border w-full p-2 mb-2"
-        value={dueDate}
-        onChange={(e) => setDueDate(e.target.value)}
+        name="dueDate"
+        value={formData.dueDate}
+        onChange={handleChange}
       />
       <select
-        value={category}
-        onChange={(e) => setCategory(e.target.value)}
+          value={formData.category}
+          onChange={handleChange}
+          name="category"
         className="border w-full p-2 mb-4"
       >
         <option value="">Select Category</option>
