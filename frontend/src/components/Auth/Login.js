@@ -12,7 +12,8 @@ const Login = ({ onLogin }) => {
       alert("Login successful");
 
       onLogin(data);
-      navigate("/");
+      // navigate("/");
+      window.location.href = "/";
     } catch (err) {
       alert(err.response?.data?.message || "Login failed");
     }

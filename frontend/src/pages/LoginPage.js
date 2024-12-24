@@ -28,9 +28,7 @@ const LoginPage = () => {
     }
   }, []);
   const handleLogin = (userData) => {
-    // Handle successful login (store user data, redirect, etc.)
     console.log("Logged in user:", userData);
-    // Example: redirect to dashboard or handle state as needed
   };
 
   return (
