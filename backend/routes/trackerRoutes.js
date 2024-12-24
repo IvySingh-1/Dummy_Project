@@ -90,6 +90,7 @@ router.put("/update-expense-score", async (req, res) => {
       });
     }
   }); 
+
 router.post("/", async (req, res) => {
     try {
         const { userEmail, title, amount, category, dueDate, description, sharedWith } = req.body;
@@ -143,6 +144,7 @@ router.get("/", async (req, res) => {
         });
     }
 });
+
 
 // GET - Fetch expenses by status (Pending/Settled) and type (To Be Given/To Be Taken)
 router.get("/filter", async (req, res) => {
