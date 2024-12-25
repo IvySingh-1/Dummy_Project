@@ -1,99 +1,146 @@
 @import url('https://fonts.googleapis.com/css2?family=Hanalei&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Rubik+Puddles&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Rye&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Eater&family=Kablammo&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Kranky&display=swap');
 
-.container1 {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    flex-direction: column;
+.container1{
+    background-image: url("../../src/assets/bg.jpg");
     height: 100vh;
-    background: url("../../src/assets/bg.jpg") no-repeat center center/cover;
+    background-size: cover; 
+}
+
+p{
+    color: rgb(0, 0, 0);
+    font-family: 'Rubik Puddles', Courier, monospace;
+    font-size: 50px;
+    font-weight: bolder;
+    letter-spacing: 10px;
+    margin: 60px 90px 60px ;
+}
+
+h1{
+    color: rgb(61, 150, 61);
+    font-family: "Hanalei",serif;
+    font-size: 50px;
+    font-weight: 900;
+    letter-spacing: 8px;
+    margin: 50px 90px 30px;
+}
+
+#name{
+    font-family: "Rye",serif;
+    color: rgb(226, 43, 49);
+    font-size: 70px;
+}
+
+.bg2{
+background-color: rgba(255, 255, 255, 0.738);
+    box-shadow: 2px 2px 40px white;
+    border-radius: 20px;
+    width: 1200px;
+        height: 500px;
+        position: absolute;
+        top: 110px;
+        left: 110px;
+}
+
+.display{
+    
+    /* display: block; */
+    text-align: center;
+    padding: 200px;
+    position: absolute;
+    top: -70px;
+    left: 740px;
+}
+
+.btn {
+    font-family: "Kranky", serif;
+    font-size: 20px;
     color: white;
-  }
-  
-  .content {
-    display: flex;
-    justify-content: space-between;
-    width: 80%;
-    max-width: 1200px;
-  }
-  
-  .left-section {
-    width: 60%;
-  }
-  
-  .greeting {
-    font-size: 2rem;
-    font-family: "Christmas", cursive;
-  }
-  
-  .welcome {
-    font-size: 2.5rem;
-    font-family: "Christmas", cursive;
-    color: green;
-  }
-  
-  .app-name {
-    font-size: 3rem;
-    font-family: "Christmas", cursive;
-    color: red;
-    text-shadow: 2px 2px 5px black;
-  }
-  
-  .navigation {
-    margin-top: 20px;
-  }
-  
-  .logout-btn,
-  .dashboard-btn,
-  .login-btn,
-  .register-btn {
-    background-color: #ff4d4d;
-    border: none;
-    color: white;
-    font-size: 1.2rem;
-    padding: 10px 20px;
-    margin: 10px;
-    cursor: pointer;
-    border-radius: 10px;
-    box-shadow: 2px 2px 5px black;
-    transition: transform 0.2s;
-  }
-  
-  .logout-btn:hover,
-  .dashboard-btn:hover,
-  .login-btn:hover,
-  .register-btn:hover {
-    transform: scale(1.1);
-  }
-  
-  .right-section {
-    width: 40%;
     position: relative;
-  }
-  
-  .decorations {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-  }
-  
-  .tree {
-    max-width: 100%;
-    margin-top: 20px;
-  }
-  
-  .snowflakes {
-    width: 100px;
-    animation: snowfall 5s linear infinite;
-  }
-  
-  @keyframes snowfall {
+    width: 120px;
+    background-color: green;
+    border-radius: 20px;
+    box-shadow: 2px 2px 20px green;
+    display: block;
+    margin-bottom: 100px;
+}
+
+h2{
+    color: rgb(97, 94, 98);
+    font-family: 'Times New Roman', Times, serif;
+}
+
+.tree{
+    position: absolute;
+    width: -90%;
+    left: -18%;
+    top: 32%;
+}
+
+.sf {
+    width: 30px;
+    animation: spinAnimate2 4s ease-out 0s infinite normal;
+}
+
+.sf1 {
+    width: 50px;
+    position: absolute;
+    top: 20%;
+    left: 10%;
+    margin: 10px;
+    animation: spinAnimate 4s ease-out 0s infinite normal;
+}
+
+.sf2 {
+    position: absolute;
+    top: 4%;
+    left: 80%;
+    margin: 20px;
+}
+
+.sf3 {
+    position: absolute;
+    top: 65%;
+    left: 70%;
+    margin: 20px;
+}
+
+.sf4 {
+    position: absolute;
+    top: 88%;
+    left: 25%;
+    margin: 20px;
+}
+
+@keyframes spinAnimate {
     0% {
-      transform: translateY(-50px);
+        width: 50px;
     }
+
+    50% {
+        width: 100px;
+    }
+
     100% {
-      transform: translateY(600px);
+        transform: rotateZ(360deg);
+        width: 50px;
     }
-  }
-  
+}
+
+@keyframes spinAnimate2 {
+    0% {
+        width: 30px;
+    }
+
+    50% {
+        width: 60px;
+    }
+
+    100% {
+        transform: rotateZ(360deg);
+        width: 30px;
+    }
+}
