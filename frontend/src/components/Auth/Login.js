@@ -30,24 +30,27 @@ const Login = ({ onLogin }) => {
       <img className="sf sf4" src={snowflakes} alt="" />
       <form
         onSubmit={handleSubmit}
-        className="max-w-md mx-auto p-4 bg-gray-100 mt-10"
+        className="mt-36 max-w-md mx-auto p-6 bg-red-900 border-4 border-green-500 rounded-lg shadow-xl  opacity-90"
       >
-        <h2 className="text-xl font-bold mb-4 mt-10">Login</h2>
+        <h2 className="text-center text-2xl font-extrabold mb-4 mt-10 text-green-500 uppercase tracking-wider">LOGIN</h2>
         <input
           type="email"
           placeholder="Email"
-          className="border w-full p-2 mb-4"
+          className="border w-full p-2 mb-4 mt-5 "
           value={email}
           onChange={(e) => setEmail(e.target.value)}
         />
         <input
           type="password"
           placeholder="Password"
-          className="border w-full p-2 mb-4"
+          className="border w-full p-2 mb-4 mt-5"
           value={password}
           onChange={(e) => setPassword(e.target.value)}
         />
-        <button className="btn text-white px-4 py-2">Login</button>
+        <button className="bg-green-500 text-white px-4 py-2 rounded hover:bg-green-700 transform hover:scale-105 transition duration-300 ease-in-out mt-5 ">
+  Login
+</button>
+
       </form>
     </div>
   );

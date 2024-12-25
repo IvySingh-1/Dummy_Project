@@ -1,26 +1,29 @@
 @import url('https://fonts.googleapis.com/css2?family=Kranky&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Eater&family=Kablammo&display=swap');
 
-
 .container{
     background-image: url("../../../src/assets/bg.jpg");
     height: 100vh;
     background-size: cover;
+    background-position: center;
+    overflow: hidden;
 }
 
-.bg{
+.bg {
     height: 100vh;
     display: flex;
     justify-content: center;
     align-items: center;
 }
 
-.bg-gray-100{
-    box-shadow: 4px 4px 10px white;
-    background-color: rgba(255, 255, 255, 0.5);
+.bg-gray-100 {
+    box-shadow: 4px 4px 10px rgba(255, 255, 255, 0.7);
+    background-color: rgba(255, 255, 255, 0.8);
     width: 600px;
-    height: 480px;    
+    height: 480px;
     border-radius: 15px;
+    border: 3px solid green;
+    position: relative;
 }
 
 h2 {
@@ -28,10 +31,11 @@ h2 {
     font-family: "Kablammo", serif;
     font-size: 50px !important;
     font-weight: 900;
-    color: green;
+    color: red;
+    text-shadow: 3px 3px 10px rgba(255, 0, 0, 0.6);
 }
 
-.border{
+.border {
     margin: 10px;
     width: 95%;
     color: rgb(255, 255, 255);
@@ -42,23 +46,30 @@ h2 {
     outline: none;
     background-size: contain;
     background-repeat: no-repeat;
-    background-color: red;
+    background-color: #d62828; /* Christmas red */
+    border: 2px solid white;
 }
 
-.btn{
-    font-family: "Kranky",serif;
+.btn {
+    font-family: "Kranky", serif;
     font-size: 20px;
     color: white;
     position: relative;
     width: 120px;
     top: 8%;
     left: 39%;
-    background-color: green;
+    background-color: #008000; /* Christmas green */
     border-radius: 20px;
-    box-shadow: 2px 2px 10px green;
+    box-shadow: 2px 2px 10px #2a9d8f;
+    transition: transform 0.3s ease;
 }
 
-.decor1{
+.btn:hover {
+    transform: scale(1.1);
+    background-color: #005f00;
+}
+
+.decor1 {
     position: absolute;
     width: 350px;
     top: 75%;
@@ -72,7 +83,7 @@ h2 {
 .sf1 {
     width: 50px;
     position: absolute;
-    top: 17%;
+    top: 10%;
     left: 10%;
     margin: 10px;
     animation: spinAnimate 4s ease-out 0s infinite normal;
@@ -80,25 +91,29 @@ h2 {
 
 .sf2 {
     position: absolute;
-    top: 4%;
+    top: 5%;
     left: 80%;
     margin: 20px;
+    animation: floatSnow 5s ease-in-out infinite;
 }
 
 .sf3 {
     position: absolute;
-    top: 65%;
+    top: 60%;
     left: 70%;
     margin: 20px;
+    animation: floatSnow 6s ease-in-out infinite;
 }
 
 .sf4 {
     position: absolute;
-    top: 88%;
+    top: 85%;
     left: 25%;
     margin: 20px;
+    animation: floatSnow 4.5s ease-in-out infinite;
 }
 
+/* Keyframes for spinning snowflakes */
 @keyframes spinAnimate {
     0% {
         width: 50px;
@@ -126,5 +141,20 @@ h2 {
     100% {
         transform: rotateZ(360deg);
         width: 30px;
+    }
+}
+
+/* Snowflakes floating */
+@keyframes floatSnow {
+    0% {
+        transform: translateY(0);
+    }
+
+    50% {
+        transform: translateY(20px);
+    }
+
+    100% {
+        transform: translateY(0);
     }
 }
