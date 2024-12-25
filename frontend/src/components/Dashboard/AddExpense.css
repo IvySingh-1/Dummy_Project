@@ -1,0 +1,129 @@
+@import url('https://fonts.googleapis.com/css2?family=Kranky&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Eater&family=Kablammo&display=swap');
+
+.container{
+    background-image: url("../../../src/assets/bg.jpg");
+    height: 100vh;
+    background-size: cover;
+}
+
+.bg{
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.bg-gray-100{
+    box-shadow: 4px 4px 10px white;
+    background-color: rgba(255, 255, 255, 0.5);
+    width: 600px;
+    height: 480px;    
+    border-radius: 15px;
+}
+
+h2 {
+    text-align: center;
+    font-family: "Kablammo", serif;
+    font-size: 50px !important;
+    font-weight: 900;
+    color: green;
+}
+
+.border{
+    margin: 10px;
+    width: 95%;
+    color: rgb(255, 255, 255);
+    font-size: 20px;
+    font-family: "Kranky", serif;
+    border-radius: 15px;
+    box-shadow: 2px 2px 10px red;
+    outline: none;
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-color: red;
+}
+
+.btn{
+    font-family: "Kranky",serif;
+    font-size: 20px;
+    color: white;
+    position: relative;
+    width: 120px;
+    top: 8%;
+    left: 39%;
+    background-color: green;
+    border-radius: 20px;
+    box-shadow: 2px 2px 10px green;
+}
+
+.decor1{
+    position: absolute;
+    width: 350px;
+    top: 75%;
+}
+
+.sf {
+    width: 30px;
+    animation: spinAnimate2 4s ease-out 0s infinite normal;
+}
+
+.sf1 {
+    width: 50px;
+    position: absolute;
+    top: 17%;
+    left: 10%;
+    margin: 10px;
+    animation: spinAnimate 4s ease-out 0s infinite normal;
+}
+
+.sf2 {
+    position: absolute;
+    top: 4%;
+    left: 80%;
+    margin: 20px;
+}
+
+.sf3 {
+    position: absolute;
+    top: 65%;
+    left: 70%;
+    margin: 20px;
+}
+
+.sf4 {
+    position: absolute;
+    top: 88%;
+    left: 25%;
+    margin: 20px;
+}
+
+@keyframes spinAnimate {
+    0% {
+        width: 50px;
+    }
+
+    50% {
+        width: 100px;
+    }
+
+    100% {
+        transform: rotateZ(360deg);
+        width: 50px;
+    }
+}
+
+@keyframes spinAnimate2 {
+    0% {
+        width: 30px;
+    }
+
+    50% {
+        width: 60px;
+    }
+
+    100% {
+        transform: rotateZ(360deg);
+        width: 30px;
+    }
+}

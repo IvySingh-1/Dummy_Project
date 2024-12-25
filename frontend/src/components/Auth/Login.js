@@ -1,6 +1,9 @@
-import { useState} from "react";
+import { useState } from "react";
 import { loginUser } from "../../utils/api";
 import { useNavigate } from "react-router-dom";
+import snowflakes from "../../assets/snowflakes.png";
+
+
 const Login = ({ onLogin }) => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -20,24 +23,33 @@ const Login = ({ onLogin }) => {
   };
 
   return (
-    <form onSubmit={handleSubmit} className="max-w-md mx-auto p-4 bg-white rounded shadow">
-      <h2 className="text-xl font-bold mb-4">Login</h2>
-      <input
-        type="email"
-        placeholder="Email"
-        className="border w-full p-2 mb-4"
-        value={email}
-        onChange={(e) => setEmail(e.target.value)}
-      />
-      <input
-        type="password"
-        placeholder="Password"
-        className="border w-full p-2 mb-4"
-        value={password}
-        onChange={(e) => setPassword(e.target.value)}
-      />
-      <button className="bg-blue-500 text-white px-4 py-2 rounded">Login</button>
-    </form>
+    <div>
+      <img className="sf1" src={snowflakes} alt="" />
+      <img className="sf sf2" src={snowflakes} alt="" />
+      <img className="sf sf3" src={snowflakes} alt="" />
+      <img className="sf sf4" src={snowflakes} alt="" />
+      <form
+        onSubmit={handleSubmit}
+        className="max-w-md mx-auto p-4 bg-gray-100 shadow"
+      >
+        <h2 className="text-xl font-bold mb-4">Login</h2>
+        <input
+          type="email"
+          placeholder="Email"
+          className="border w-full p-2 mb-4"
+          value={email}
+          onChange={(e) => setEmail(e.target.value)}
+        />
+        <input
+          type="password"
+          placeholder="Password"
+          className="border w-full p-2 mb-4"
+          value={password}
+          onChange={(e) => setPassword(e.target.value)}
+        />
+        <button className="btn text-white px-4 py-2">Login</button>
+      </form>
+    </div>
   );
 };
 

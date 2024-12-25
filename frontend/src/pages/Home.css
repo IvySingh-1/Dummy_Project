@@ -1,0 +1,33 @@
+@import url('https://fonts.googleapis.com/css2?family=Hanalei&display=swap');
+
+.container1{
+    background-image: url("../../src/assets/bg.jpg");
+    height: 100vh;
+    background-size: cover; 
+}
+
+h1{
+    color: rgb(61, 150, 61);
+    font-family: "Hanalei",serif;
+    font-size: 50px;
+    font-weight: 900;
+    margin: 90px;
+    text-align: center;
+}
+
+#name{
+    color: rgb(226, 43, 49);
+    font-weight: 900;
+    font-size: 70px;
+}
+
+.btn1{
+    padding: 10px 15px;
+    display: inline;
+}
+
+.tree{
+    position: absolute;
+    left: 65%;
+    top: 20%;
+}

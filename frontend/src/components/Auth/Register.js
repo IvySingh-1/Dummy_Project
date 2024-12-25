@@ -25,7 +25,7 @@ const Register = () => {
   };
 
   return (
-    <form onSubmit={handleSubmit} className="max-w-md mx-auto p-4 bg-white rounded shadow mt-10">
+    <form onSubmit={handleSubmit} className="max-w-md mx-auto p-4 bg-gray-100 rounded shadow mt-10">
       <h2 className="text-xl font-bold mb-4">Register</h2>
       <input
         type="text"
@@ -55,7 +55,7 @@ const Register = () => {
         value={confirmPassword}
         onChange={(e) => setConfirmPassword(e.target.value)}
       />
-      <button className="bg-blue-500 text-white px-4 py-2 rounded w-full">Register</button>
+      <button className="btn bg-blue-500 text-white px-4 py-2 rounded w-full">Register</button>
     </form>
   );
 };
