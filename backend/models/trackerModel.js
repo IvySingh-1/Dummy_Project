@@ -64,7 +64,7 @@ const expenseSchema = new mongoose.Schema({
             },
             type: {
                 type: String,
-                enum: ["To Be Taken", "To Be Given"], // Specifies the direction of the transaction
+                enum: ["To be Taken", "To be Given"], // Specifies the direction of the transaction
                 required: true,
             },
         },
