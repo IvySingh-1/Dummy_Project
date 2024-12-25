@@ -34,32 +34,32 @@ const Home = () => {
     },[userDetails]);
   return (
     <div className="container1 p-4 ">
-      {/* <img className="tree" src={tree} alt=""/>
+      <div className="bg2">
+        <img className="tree" src={tree} alt="" />
+        {userDetails && userDetails.Email ? <p>HI {userDetails.name}</p> : ""}
 
-      <img className="sf1" src={snowflakes} alt="" />
-            <img className="sf sf2" src={snowflakes} alt="" />
-            <img className="sf sf3" src={snowflakes} alt="" />
-            <img className="sf sf4" src={snowflakes} alt="" />
-             */}
+        <img className="sf1" src={snowflakes} alt="" />
+        <img className="sf sf2" src={snowflakes} alt="" />
+        <img className="sf sf3" src={snowflakes} alt="" />
+        <img className="sf sf4" src={snowflakes} alt="" />
 
-      {userDetails && userDetails.Email ? <p>HI {userDetails.name}</p> : ""}
+        <h1>Welcome to Your</h1>
+        <h1 id="name">Expense Tracker</h1>
 
-      <h1>Welcome to Your</h1>
-      <h1 id="name">Expense Tracker</h1>
-
-      <nav className="mb-6">
-        {userDetails && userDetails.Email ? (
-          <button onClick={handleLogout}>Logout</button>
-        ) : (
-          <Link to="/login" className="btn1 btn m-9">
-            Login
+        <nav className="display mb-6">
+          {userDetails && userDetails.Email ? (
+            <button onClick={handleLogout}>Logout</button>
+          ) : (
+            <Link to="/login" className="btn">
+              Login
+            </Link>
+          )}
+          <h2>Don't have an account? Register below</h2>
+          <Link to="/register" className="btn">
+            Register
           </Link>
-        )}
-        <Link to="/register" className="btn1 btn text-blue-500">
-          Register
-        </Link>
-      </nav>
-
+        </nav>
+      </div>
       <Routes>
         <Route path="login" element={<LoginPage />} />
         <Route path="register" element={<RegisterPage />} />
