@@ -30,9 +30,9 @@ const Login = ({ onLogin }) => {
       <img className="sf sf4" src={snowflakes} alt="" />
       <form
         onSubmit={handleSubmit}
-        className="max-w-md mx-auto p-4 bg-gray-100 shadow"
+        className="max-w-md mx-auto p-4 bg-gray-100 mt-10"
       >
-        <h2 className="text-xl font-bold mb-4">Login</h2>
+        <h2 className="text-xl font-bold mb-4 mt-10">Login</h2>
         <input
           type="email"
           placeholder="Email"

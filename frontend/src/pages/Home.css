@@ -1,4 +1,5 @@
 @import url('https://fonts.googleapis.com/css2?family=Hanalei&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Rubik+Puddles&display=swap');
 
 .container1{
     background-image: url("../../src/assets/bg.jpg");
@@ -6,13 +7,22 @@
     background-size: cover; 
 }
 
+p{
+    color: white;
+    font-family: 'Rubik Puddles', Courier, monospace;
+    font-size: 50px;
+    font-weight: bolder;
+    letter-spacing: 10px;
+    margin: 120px 100px 60px ;
+}
+
 h1{
     color: rgb(61, 150, 61);
     font-family: "Hanalei",serif;
     font-size: 50px;
     font-weight: 900;
-    margin: 90px;
-    text-align: center;
+    letter-spacing: 8px;
+    margin: 50px 100px 30px;
 }
 
 #name{
@@ -30,4 +40,69 @@ h1{
     position: absolute;
     left: 65%;
     top: 20%;
+}
+
+.sf {
+    width: 30px;
+    animation: spinAnimate2 4s ease-out 0s infinite normal;
+}
+
+.sf1 {
+    width: 50px;
+    position: absolute;
+    top: 17%;
+    left: 10%;
+    margin: 10px;
+    animation: spinAnimate 4s ease-out 0s infinite normal;
+}
+
+.sf2 {
+    position: absolute;
+    top: 4%;
+    left: 80%;
+    margin: 20px;
+}
+
+.sf3 {
+    position: absolute;
+    top: 65%;
+    left: 70%;
+    margin: 20px;
+}
+
+.sf4 {
+    position: absolute;
+    top: 88%;
+    left: 25%;
+    margin: 20px;
+}
+
+@keyframes spinAnimate {
+    0% {
+        width: 50px;
+    }
+
+    50% {
+        width: 100px;
+    }
+
+    100% {
+        transform: rotateZ(360deg);
+        width: 50px;
+    }
+}
+
+@keyframes spinAnimate2 {
+    0% {
+        width: 30px;
+    }
+
+    50% {
+        width: 60px;
+    }
+
+    100% {
+        transform: rotateZ(360deg);
+        width: 30px;
+    }
 }
