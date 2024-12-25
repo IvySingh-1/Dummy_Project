@@ -48,60 +48,60 @@ Make sure you have the following installed:
 
 ### Clone the Repository
 
-Clone the repository to your local machine:
+- **Clone the repository to your local machine:**
 
 git clone https://github.com/your-username/expense-tracker.git
 cd expense-tracker
 
 ### Frontend Setup
-Navigate to the client directory:
+- **Navigate to the client directory:**
 cd client
 
-Install the necessary dependencies:
+- **Install the necessary dependencies:**
 npm install
 
-Start the frontend server:
+- **Start the frontend server:**
 npm start
 
-The frontend should now be running at http://localhost:3000.
+- The frontend should now be running at http://localhost:3000.
 
 ### Backend Setup
-Navigate to the server directory: 
+- **Navigate to the server directory:** 
 cd ../server
 
-Install the necessary dependencies: 
+- **Install the necessary dependencies:** 
 npm install
 
-Create a .env file in the server directory and add your MongoDB URI and JWT secret:
+- **Create a .env file in the server directory and add your MongoDB URI and JWT secret:**
 mongoURL  =  mongodb+srv://admin:admin2025@expensetracker.d4xpn.mongodb.net/?retryWrites=true&w=majority&appName=ExpenseTracker
 JWT_SECRET = "JWT_SECRET"
 
-Start the backend server:
+- **Start the backend server:**
 npm start
 
-The backend should now be running at http://localhost:5000.
+- The backend should now be running at http://localhost:5000.
 
 ### Full Stack
 Now, your full stack application should be up and running locally. Open your browser and navigate to http://localhost:3000 to interact with the Expense Tracker.
 
 ### Usage
-**Sign up**: Create a new account by providing an email and password.
-**Login**: Use your credentials to sign in.
-**Add Expense**: Add new expenses by entering the amount, description, and category.
-**View Expenses**: See a list of your expenses and filter them by category or date range.
-**Generate Reports**: View your spending trends in graphical reports.
-**Export Data**: Export your expense history to a CSV file.
+- **Sign up**: Create a new account by providing an email and password.
+- **Login**: Use your credentials to sign in.
+- **Add Expense**: Add new expenses by entering the amount, description, and category.
+- **View Expenses**: See a list of your expenses and filter them by category or date range.
+- **Generate Reports**: View your spending trends in graphical reports.
+- **Export Data**: Export your expense history to a CSV file.
 
 ### Contributing
-We welcome contributions to improve the Expense Tracker project. If you want to contribute, please follow these steps:
-Fork the repository.
-Create a new branch (git checkout -b feature/your-feature).
-Make your changes and commit them (git commit -am 'Add your feature').
-Push to the branch (git push origin feature/your-feature).
-Create a pull request explaining your changes.
+- We welcome contributions to improve the Expense Tracker project. If you want to contribute, please follow these steps:
+- Fork the repository.
+- Create a new branch (git checkout -b feature/your-feature).
+- Make your changes and commit them (git commit -am 'Add your feature').
+- Push to the branch (git push origin feature/your-feature).
+- Create a pull request explaining your changes.
 
 ### Acknowledgments
-React for building the frontend.
-Node.js for the backend server.
-MongoDB for the database.
-JWT for secure authentication.
+- React for building the frontend.
+- Node.js for the backend server.
+- MongoDB for the database.
+- JWT for secure authentication.
