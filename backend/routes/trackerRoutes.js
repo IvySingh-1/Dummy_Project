@@ -16,7 +16,7 @@ router.put("/update-expense-score", async (req, res) => {
       }
  
       const updatedUser = await User.findOneAndUpdate(
-        { email: email },
+        { userEmail: email },
         { expenseScore }, 
         { new: true } 
       );
@@ -47,20 +47,22 @@ router.put("/update-expense-score", async (req, res) => {
 
   router.put("/update-due-date", async (req, res) => {
     try {
-      const { userEmail,sharedWith, dueDate } = req.body;
+      const { email,sharedWith, dueDate } = req.body;
 //we have to make sure dueDate format matches with what mongo db accepts
-      if (!email || dueDate === undefined) {
+console.log({email,sharedWith,dueDate})
+      if (!email || !dueDate) {
         return res.status(400).json({
           success: false,
-          message: "Email and m due date are required",
+          message: "Email and  due date are required",
         });
       }
  
       const updatedUser = await Expense.findOneAndUpdate(
         {
           $and: [
-            { userEmail }, 
-            { "sharedWith.email": sharedWith } // shared with email
+            { userEmail:email }, 
+            // {sharedWith: { $elemMatch: { email: sharedWith } } }
+            { "sharedWith.email": sharedWith } // shared with email sharedWith: { $elemMatch: { email: sharedWith } } 
           ]
         },
         { dueDate: new Date(dueDate)}, 
@@ -93,7 +95,7 @@ router.put("/update-expense-score", async (req, res) => {
 
 router.post("/", async (req, res) => {
     try {
-        const { userEmail, title, amount, category, dueDate, description, sharedWith } = req.body;
+        const { userEmail, title, amount, category, dueDate, description, sharedEmail,type,status } = req.body;
 
         if (!userEmail || !title || !amount || !category || !dueDate) {
             return res.status(400).json({
@@ -109,7 +111,12 @@ router.post("/", async (req, res) => {
             category,
             dueDate: new Date(dueDate),
             description,
-            sharedWith,
+            sharedWith:{
+              email:sharedEmail,
+              type,
+              status,
+              amount
+            },
         });
 
         const savedExpense = await newExpense.save();
@@ -145,8 +152,39 @@ router.get("/", async (req, res) => {
     }
 });
 
+router.get("/filterByEmail", async (req, res) => {
+  try {
+      const { email } = req.query;
 
+    
+      if (!email) {
+          return res.status(400).json({
+              success: false,
+              message: "Email not recieved",
+          });
+      }
+
+   
+
+      // Query expenses based on status and type
+      const filteredExpenses = await Expense.find({
+          "userEmail":email
+      });
+
+      res.status(200).json({
+          success: true,
+          expenses: filteredExpenses,
+      });
+  } catch (error) {
+      console.error("Error filtering expenses:", error);
+      res.status(500).json({
+          success: false,
+          message: "Internal server error",
+      });
+  }
+});
 // GET - Fetch expenses by status (Pending/Settled) and type (To Be Given/To Be Taken)
+
 router.get("/filter", async (req, res) => {
     try {
         const { status, type } = req.query;
@@ -185,7 +223,7 @@ router.get("/filter", async (req, res) => {
     }
 });
 
-router.get("/category", async (req, res) => {
+router.get("/filterByCategory", async (req, res) => {
   try {
       const { category } = req.query;
 

@@ -3,9 +3,7 @@ import Register from "./../components/Auth/Register";
 
 const RegisterPage = () => {
   const handleRegister = (userData) => {
-    // Handle successful registration (store user data, redirect, etc.)
     console.log("Registered user:", userData);
-    // Example: redirect to login or dashboard
   };
 
   return (

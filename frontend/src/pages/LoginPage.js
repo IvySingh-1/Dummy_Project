@@ -3,14 +3,14 @@ import Cookies from "js-cookie";
 import {jwtDecode} from "jwt-decode";
 
 import Login from "./../components/Auth/Login";
-
+import { useUserContext } from "./../components/context/userContext";
 const LoginPage = () => {
   const [userData, setUserData] = useState({
     Email:"",
     name:"",
     ExpenseScore:0
   });
-
+ const { userDetails, setUserDetails } = useUserContext();
   useEffect(() => {
     
     const token = Cookies.get("token"); 
@@ -28,9 +28,7 @@ const LoginPage = () => {
     }
   }, []);
   const handleLogin = (userData) => {
-    // Handle successful login (store user data, redirect, etc.)
     console.log("Logged in user:", userData);
-    // Example: redirect to dashboard or handle state as needed
   };
 
   return (
