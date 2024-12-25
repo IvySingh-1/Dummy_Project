@@ -40,6 +40,10 @@ const expenseSchema = new mongoose.Schema({
         trim: true,
         maxlength: 500,
     },
+    notified:{
+        type: Boolean,
+        default:false
+    },
     sharedWith: [
         {
             email: {

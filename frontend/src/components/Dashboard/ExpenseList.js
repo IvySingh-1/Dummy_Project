@@ -6,7 +6,9 @@ const ExpenseList = () => {
   const { userDetails, loading } = useUserContext();
   const [expenses, setExpenses] = useState([]);
   const [editIndex, setEditIndex] = useState(null); // which expense is being edited
+  const [editStatus, setEditStatus] = useState(null); // which expense is being edited
   const [newDueDate, setNewDueDate] = useState("");
+  const [newStatus, setNewStatus] = useState("");
   const [selectedCategories, setSelectedCategories] = useState([]);
   const [selectedStatuses, setSelectedStatuses] = useState([]);
 
@@ -53,9 +55,9 @@ const ExpenseList = () => {
   };
 
   const filteredData = expenses.filter((item) => {
-    console.log("Expenses:", expenses);
-    console.log("Selected Categories:", selectedCategories);
-    console.log("Selected Statuses:", selectedStatuses);
+    // console.log("Expenses:", expenses);
+    // console.log("Selected Categories:", selectedCategories);
+    // console.log("Selected Statuses:", selectedStatuses);
 
     const categoryMatch =
       selectedCategories.length === 0 ||
@@ -66,9 +68,9 @@ const ExpenseList = () => {
     return categoryMatch && statusMatch;
   });
 
-  const updateDueDate = async (sharedEmail) => {
-    console.log({ sharedEmail });
-    console.log(userDetails.Email);
+  const updateDueDate = async (sharedEmail, expense_id) => {
+    // console.log({ sharedEmail });
+    // console.log(userDetails.Email);
     try {
       const response = await fetch(
         "http://localhost:3001/api/update-due-date",
@@ -81,6 +83,7 @@ const ExpenseList = () => {
             email: userDetails.Email,
             sharedWith: sharedEmail,
             dueDate: newDueDate,
+            expense_id,
           }),
         }
       );
@@ -91,11 +94,71 @@ const ExpenseList = () => {
 
       const data = await response.json();
       console.log("Due date updated successfully:", data);
+      setEditIndex(-3);
       alert("Due date updated successfully!");
       getExpenses();
     } catch (error) {
       console.error("Error updating due date:", error);
       alert("Failed to update due date. Please try again.");
+    }
+  };
+  const updateStatus = async (sharedEmail, expense_id) => {
+    // console.log({ sharedEmail });
+    // console.log(userDetails.Email);
+    try {
+      const response = await fetch("http://localhost:3001/api/updateStatus", {
+        method: "PUT",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          email: userDetails.Email,
+          sharedWith: sharedEmail,
+          status: newStatus,
+          expense_id,
+        }),
+      });
+
+      if (!response.ok) {
+        throw new Error(`Error: ${response.statusText}`);
+      }
+
+      const data = await response.json();
+      console.log("Status updated successfully:", data);
+      setEditStatus(-3);
+      alert("Status updated successfully!");
+      getExpenses();
+    } catch (error) {
+      console.error("Error updating Status:", error);
+      alert("Failed to update Status. Please try again.");
+    }
+  };
+  const deleteExpense = async ( expense_id) => {
+    // console.log({ sharedEmail });
+    // console.log(userDetails.Email);
+    try {
+      const response = await fetch("http://localhost:3001/api/deleteExpense", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          email: userDetails.Email,
+          expense_id,
+        }),
+      });
+
+      if (!response.ok) {
+        throw new Error(`Error: ${response.statusText}`);
+      }
+
+      const data = await response.json();
+      console.log("Expense deleted successfully:", data);
+      alert("Expense deleted successfully!");
+      getExpenses();
+    } catch (error) {
+      console.error("Error deleting expense:", error);
+      alert("Failed deleting expense. Please try again.");
     }
   };
   return (
@@ -150,10 +213,16 @@ const ExpenseList = () => {
             key={expense._id}
             className="py-2 bg-gray-100 p-10 rounded-xl border-2 border-blue-200 md:w-1/2"
           >
+            
             <span>
               {expense.title} - {expense.amount}rs. Category: {expense.category}
             </span>
-
+            <button
+              className=" my-2 px-1 py-1 rounded  ml-2 hover:text-lg"
+              onClick={()=>deleteExpense(expense._id)}
+            >
+              ❌
+            </button>
             <ul>
               {expense.sharedWith.map((sharedWith) => {
                 return (
@@ -181,7 +250,9 @@ const ExpenseList = () => {
                             className="p-2 border rounded focus:ring focus:ring-blue-300"
                           />
                           <button
-                            onClick={() => updateDueDate(sharedWith.email)}
+                            onClick={() =>
+                              updateDueDate(sharedWith.email, expense._id)
+                            }
                             className=" px-4 py-2 text-white bg-blue-500 rounded hover:bg-blue-600"
                           >
                             Update
@@ -193,6 +264,35 @@ const ExpenseList = () => {
                           className=" mt-2 px-2 py-1 text-white bg-blue-500 rounded hover:bg-yellow-600"
                         >
                           Update Due Date
+                        </button>
+                      )}
+                      {editStatus === index ? (
+                        <div className="mt-2 flex flex-col items-start space-y-2">
+                          <select
+                            value={newStatus}
+                            onChange={(e) => setNewStatus(e.target.value)}
+                            name="status"
+                            className="p-2 border rounded focus:ring focus:ring-blue-300"
+                          >
+                            <option value="">Status</option>
+                            <option value="Pending">Pending</option>
+                            <option value="Settled">Settled</option>
+                          </select>
+                          <button
+                            onClick={() =>
+                              updateStatus(sharedWith.email, expense._id)
+                            }
+                            className=" px-4 py-2 text-white bg-blue-500 rounded hover:bg-blue-600"
+                          >
+                            Update
+                          </button>
+                        </div>
+                      ) : (
+                        <button
+                          onClick={() => setEditStatus(index)}
+                          className=" mt-2 px-2 py-1 text-white bg-blue-500 rounded hover:bg-yellow-600 ml-2"
+                        >
+                          Update Status
                         </button>
                       )}
                     </span>
