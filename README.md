@@ -53,6 +53,8 @@ Make sure you have the following installed:
 git clone https://github.com/your-username/expense-tracker.git
 cd expense-tracker
 
+---
+
 ### Frontend Setup
 - **Navigate to the client directory:**
 cd client
@@ -64,6 +66,8 @@ npm install
 npm start
 
 - The frontend should now be running at http://localhost:3000.
+
+---
 
 ### Backend Setup
 - **Navigate to the server directory:** 
@@ -84,6 +88,8 @@ npm start
 ### Full Stack
 Now, your full stack application should be up and running locally. Open your browser and navigate to http://localhost:3000 to interact with the Expense Tracker.
 
+---
+
 ### Usage
 - **Sign up**: Create a new account by providing an email and password.
 - **Login**: Use your credentials to sign in.
@@ -91,6 +97,8 @@ Now, your full stack application should be up and running locally. Open your bro
 - **View Expenses**: See a list of your expenses and filter them by category or date range.
 - **Generate Reports**: View your spending trends in graphical reports.
 - **Export Data**: Export your expense history to a CSV file.
+
+---
 
 ### Contributing
 - We welcome contributions to improve the Expense Tracker project. If you want to contribute, please follow these steps:
@@ -100,8 +108,12 @@ Now, your full stack application should be up and running locally. Open your bro
 - Push to the branch (git push origin feature/your-feature).
 - Create a pull request explaining your changes.
 
+---
+
 ### Acknowledgments
 - React for building the frontend.
 - Node.js for the backend server.
 - MongoDB for the database.
 - JWT for secure authentication.
+
+---
