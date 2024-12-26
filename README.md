@@ -76,10 +76,6 @@ cd ../server
 - **Install the necessary dependencies:** 
 npm install
 
-- **Create a .env file in the server directory and add your MongoDB URI and JWT secret:**
-mongoURL  =  mongodb+srv://admin:admin2025@expensetracker.d4xpn.mongodb.net/?retryWrites=true&w=majority&appName=ExpenseTracker
-JWT_SECRET = "JWT_SECRET"
-
 - **Start the backend server:**
 npm start
 
