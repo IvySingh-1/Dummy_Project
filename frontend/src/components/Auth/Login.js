@@ -33,9 +33,10 @@ const Login = ({ onLogin }) => {
       <img className="sf sf2" src={snowflakes} alt="" />
       <img className="sf sf3" src={snowflakes} alt="" />
       <img className="sf sf4" src={snowflakes} alt="" />
+      <div className="bg-gray-100 opacity-80 w-fit rounded-xl">
       <form
         onSubmit={handleSubmit}
-        className="mt-36 max-w-md mx-auto p-6 bg-red-900 border-4 border-green-500 rounded-lg shadow-xl  opacity-90"
+        className="mt-24 max-w-md mx-auto p-6  border-4 border-green-500 rounded-lg shadow-xl  opacity-90"
       >
         <h2 className="text-center text-2xl font-extrabold mb-4 mt-10 text-green-500 uppercase tracking-wider">LOGIN</h2>
         <input
@@ -57,6 +58,7 @@ const Login = ({ onLogin }) => {
 </button>
 
       </form>
+      </div>
     </div>
   );
 };

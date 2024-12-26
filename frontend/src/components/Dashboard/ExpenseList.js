@@ -188,10 +188,10 @@ const ExpenseList = ({ mnExpense }) => {
               className="py-2 bg-gray-100 p-4 rounded-xl border border-blue-200"
             >
               <span>
-                {expense.title} - {expense.amount}rs. <br/>
-                Category:{" "}
-                {expense.category}
-              </span><br/>
+                {expense.title} - {expense.amount}rs. <br />
+                Category: {expense.category}
+              </span>
+              <br />
               <button
                 className="my-2 px-2 py-1 rounded ml-2 text-red-500 hover:text-red-700"
                 onClick={() => deleteExpense(expense._id)}
@@ -201,10 +201,12 @@ const ExpenseList = ({ mnExpense }) => {
               <ul>
                 {expense.sharedWith.map((sharedWith) => (
                   <li key={sharedWith._id}>
-                    <span>Shared With: {sharedWith.email}</span><br/>
+                    <span>Shared With: {sharedWith.email}</span>
+                    <br />
                     <span className="mx-2 font-medium">
                       Type: {sharedWith.type}
-                    </span><br/>
+                    </span>
+                    <br />
                     <span className="pr-2">Status: {sharedWith.status}</span>
                     <br />
                     <span>

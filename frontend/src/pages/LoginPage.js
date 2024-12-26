@@ -32,7 +32,7 @@ const LoginPage = () => {
   };
 
   return (
-    <div className="container1 p-4">
+    <div className="container1 flex justify-center items-center p-4">
       {/* <h2 className="text-2xl font-bold mb-4"></h2> */}
       <Login onLogin={handleLogin} />
     </div>

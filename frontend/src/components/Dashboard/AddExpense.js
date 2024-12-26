@@ -5,7 +5,7 @@ import ExpenseList from "./ExpenseList";
 import toast, { Toaster } from "react-hot-toast";
 const AddExpense = ({ onExpenseAdded }) => {
   const { userDetails } = useUserContext();
-  let userEmail = userDetails.Email;
+  let userEmail = userDetails?.Email;
   const [mnExpense, setMnExpense] = useState(false);
   const [formData, setFormData] = useState({
     userEmail,
@@ -34,9 +34,9 @@ const AddExpense = ({ onExpenseAdded }) => {
       console.log(res);
       if (res.status === 201) {
         // alert("Expense added");
-toast('Expense Added', {
-  icon: '❄❄❄',
-});
+        toast("Expense Added", {
+          icon: "❄❄❄",
+        });
         setFormData({
           userEmail,
           sharedEmail: "",
@@ -58,7 +58,7 @@ toast('Expense Added', {
       }
     } catch (err) {
       toast(`${err.response?.data?.message || "Failed to add expense"}`, {
-        icon: '⛑'
+        icon: "⛑",
       });
       // alert(err.response?.data?.message || "Failed to add expense");
     }
@@ -66,7 +66,9 @@ toast('Expense Added', {
 
   return (
     <div className="">
-      <div><Toaster/></div>
+      <div>
+        <Toaster />
+      </div>
       <form onSubmit={handleSubmit} className="bg-gray-100 p-4 rounded mx-4 ">
         <h2 className="text-lg font-bold mb-4">Add Expense</h2>
         <input

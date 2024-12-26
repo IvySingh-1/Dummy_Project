@@ -39,7 +39,8 @@ const Register = () => {
             <img className="sf sf2" src={snowflakes} alt="" />
             <img className="sf sf3" src={snowflakes} alt="" />
             <img className="sf sf4" src={snowflakes} alt="" />
-    <form onSubmit={handleSubmit} className="max-w-md mx-auto p-4 bg-gray-100 mt-10">
+            <div className="bg-gray-100 opacity-80 rounded-xl">
+    <form onSubmit={handleSubmit} className="max-w-md mx-auto p-4  mt-10 border-4 border-green-500 rounded-xl">
       <h2 className="text-xl font-bold mb-4">Register</h2>
       <input
         type="text"
@@ -71,6 +72,7 @@ const Register = () => {
       />
       <button className="btn bg-blue-500 text-white px-4 py-2 rounded w-full">Register</button>
     </form>
+    </div>
     </div>
   );
 };
