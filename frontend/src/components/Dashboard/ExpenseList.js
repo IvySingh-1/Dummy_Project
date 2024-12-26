@@ -138,7 +138,7 @@ const ExpenseList = () => {
     // console.log(userDetails.Email);
     try {
       const response = await fetch("http://localhost:3001/api/deleteExpense", {
-        method: "POST",
+        method: "DELETE",
         headers: {
           "Content-Type": "application/json",
         },
