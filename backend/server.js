@@ -25,8 +25,8 @@ app.get("/", (req, res) => {
   res.send("Welcome to the Express app!");
 });
 
-
-schedule.scheduleJob("0 0 * * *", sendDailyNotifications);//0th minute, 0th hr which is 12 am, any day,any month,any week
+sendDailyNotifications();//run at anytime for showcasing purpose
+// schedule.scheduleJob("0 0 * * *", sendDailyNotifications);//0th minute, 0th hr which is 12 am, any day,any month,any week
 
 const PORT = process.env.PORT || 3001;
 app.listen(PORT, () => {

@@ -25,8 +25,14 @@ const expenseSchema = new mongoose.Schema({
     category: {
         type: String,
         required: [true, "Expense category is required"],
-        enum: ["Cafe Food", "Ordered Food", "Outside Food", "Groceries", "Munchies", "Other"],
+        enum: ["Cafe Food", "Ordered Food", "Outside Food", "Groceries", "Munchies", "Other"]
+        
     },
+    typeN: {
+        type: String,
+        enum: ["Naughty", "Nice"],
+        required: true,
+      },
     date: {     //expensed at
         type: Date,
         default: Date.now,

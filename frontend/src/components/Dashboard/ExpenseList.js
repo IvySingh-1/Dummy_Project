@@ -42,7 +42,12 @@ const ExpenseList = ({ mnExpense }) => {
     if (!loading && userDetails) {
       getExpenses();
     }
-  }, [mnExpense, pageNumber]);
+  }, [mnExpense]);
+  useEffect(() => {
+    if (!loading && userDetails) {
+      getExpenses();
+    }
+  }, [pageNumber]);
 
   const handleCategoryChange = (value) => {
     setSelectedCategories((prev) =>
@@ -124,7 +129,7 @@ const ExpenseList = ({ mnExpense }) => {
   const deleteExpense = async (expense_id) => {
     try {
       const response = await fetch("http://localhost:3001/api/deleteExpense", {
-        method: "DELETE",
+        method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
           email: userDetails.Email,
@@ -184,7 +189,7 @@ const ExpenseList = ({ mnExpense }) => {
             </div>
           </div>
         </div>
-        <h2 className="text-lg font-bold mt-8 mb-2">Expenses</h2>
+        <h2 className="text-lg font-bold ml-1 mt-8 mb-2">Expenses</h2>
         <ul className="grid grid-cols-1 md:grid-cols-2 gap-4">
           {filteredData.map((expense, index) => (
             <li
@@ -193,12 +198,13 @@ const ExpenseList = ({ mnExpense }) => {
             >
               <div className="flex justify-between">
                 <span>
-                  {expense.title} - {expense.amount}rs. <br />
+                  {expense.title} - ₹{expense.amount} <br />
                   Category: {expense.category}
+                  --<strong>{expense.typeN}</strong>
                 </span>
                 <br />
                 <span
-                  className="my-2 px-2 py-1 rounded ml-2 text-red-500 hover:text-red-700"
+                  className="my-2 px-2 py-1 rounded ml-2 text-red-500 hover:text-red-700 cursor-pointer"
                   onClick={() => deleteExpense(expense._id)}
                 >
                   ❌
@@ -208,10 +214,10 @@ const ExpenseList = ({ mnExpense }) => {
                 {expense.sharedWith.map((sharedWith) => (
                   <li key={sharedWith._id} className="text-sm md:text-base">
                     <span className="mr-2 break-words">
-                      Shared With: {sharedWith.email}
+                      SharedWith: {sharedWith.email}
                     </span>
                     <br />
-                    <span className="font-medium">Type: {sharedWith.type}</span>
+                    <span className="font-medium">{sharedWith.type}</span>
                     <br />
                     <span className="pr-2">Status: {sharedWith.status}</span>
                     <br />
@@ -287,7 +293,11 @@ const ExpenseList = ({ mnExpense }) => {
           ))}
         </ul>
       </div>
-      <div className={`flex items-center justify-evenly mt-4 md:mt-12`}>
+      <div
+        className={`flex items-center justify-evenly mt-4 md:mt-12  ${
+          totalPages >= 1 ? "" : "hidden"
+        }`}
+      >
         <button
           className={`text-blue-700 font-bold  ${
             pageNumber <= 1 ? "cursor-not-allowed" : ""
@@ -296,7 +306,7 @@ const ExpenseList = ({ mnExpense }) => {
           onClick={() => {
             if (pageNumber > 1) {
               setPageNumber((prev) => prev - 1);
-              console.log({totalPages})
+              console.log({ totalPages });
             }
           }}
         >
@@ -311,7 +321,7 @@ const ExpenseList = ({ mnExpense }) => {
           onClick={() => {
             if (pageNumber <= totalPages) {
               setPageNumber((prev) => prev + 1);
-              console.log({totalPages},pageNumber)
+              console.log({ totalPages }, pageNumber);
             }
           }}
         >

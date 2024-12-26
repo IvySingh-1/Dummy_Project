@@ -7,6 +7,7 @@ import RegisterPage from "./pages/RegisterPage"
 import {RecoilRoot,useRecoilState} from "recoil"
 import { UserProvider } from "./components/context/userContext";
 import ProfilePage from "./pages/ProfilePage";
+import SpendingPage from "./pages/SpendingPage";
 function App() {
   return (
     <Router>
@@ -17,6 +18,7 @@ function App() {
         <Route path="/login" element={<LoginPage />} />
         <Route path="/register" element={<RegisterPage />} />
         <Route path="/profile" element={<ProfilePage />} />
+        <Route path="/spending" element={<SpendingPage />} />
       </Routes>
         </UserProvider>
     </Router>
