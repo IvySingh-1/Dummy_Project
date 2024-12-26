@@ -2,7 +2,7 @@ import { useState } from "react";
 import { loginUser } from "../../utils/api";
 import { useNavigate } from "react-router-dom";
 import snowflakes from "../../assets/snowflakes.png";
-
+import toast, { Toaster } from "react-hot-toast";
 
 const Login = ({ onLogin }) => {
   const [email, setEmail] = useState("");
@@ -12,18 +12,23 @@ const Login = ({ onLogin }) => {
     e.preventDefault();
     try {
       const { data } = await loginUser({ email, password });
-      alert("Login successful");
-
+      toast('Login successful', {
+        icon: '🦌',
+      });
       onLogin(data);
       // navigate("/");
       window.location.href = "/";
     } catch (err) {
-      alert(err.response?.data?.message || "Login failed");
+      toast(`${err.response?.data?.message || "Login failed"}`, {
+        icon: '➕',
+      });
+      // alert(err.response?.data?.message || "Login failed");
     }
   };
 
   return (
     <div>
+        <div><Toaster/></div>
       <img className="sf1" src={snowflakes} alt="" />
       <img className="sf sf2" src={snowflakes} alt="" />
       <img className="sf sf3" src={snowflakes} alt="" />
