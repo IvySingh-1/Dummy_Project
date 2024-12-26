@@ -25,7 +25,7 @@ const expenseSchema = new mongoose.Schema({
     category: {
         type: String,
         required: [true, "Expense category is required"],
-        enum: ["Cafe Food", "Ordered Food", "Outside Food", "Groceries", "Munchies", "Others"],
+        enum: ["Cafe Food", "Ordered Food", "Outside Food", "Groceries", "Munchies", "Other"],
     },
     date: {     //expensed at
         type: Date,
@@ -39,6 +39,10 @@ const expenseSchema = new mongoose.Schema({
         type: String,
         trim: true,
         maxlength: 500,
+    },
+    notified:{
+        type: Boolean,
+        default:false
     },
     sharedWith: [
         {
