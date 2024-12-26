@@ -59,7 +59,6 @@ const Home = () => {
               <Link to="/login" className="btn btn1">
                 Login
               </Link>
-              <h2>Don't have an account? Register below</h2>
               <Link to="/register" className="btn">
                 Register
               </Link>
