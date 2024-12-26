@@ -1,138 +1,142 @@
 import express from "express";
-import User from "../models/userModels.js"; 
+import User from "../models/userModels.js";
 import Expense from "../models/trackerModel.js";
 
 const router = express.Router();
 
 router.put("/update-expense-score", async (req, res) => {
-    try {
-      const { email, expenseScore } = req.body;
+  try {
+    const { email, expenseScore } = req.body;
 
-      if (!email || expenseScore === undefined) {
-        return res.status(400).json({
-          success: false,
-          message: "Email and expenseScore are required",
-        });
-      }
- 
-      const updatedUser = await User.findOneAndUpdate(
-        { userEmail: email },
-        { expenseScore }, 
-        { new: true } 
-      );
-  
-    
-      if (!updatedUser) {
-        return res.status(404).json({
-          success: false,
-          message: "User not found",
-        });
-      }
-  
- 
-      res.status(200).json({
-        success: true,
-        message: "Expense score updated successfully",
-        user: updatedUser,
-      });
-    } catch (error) {
-      console.error("Error updating expense score:", error);
-      res.status(500).json({
+    if (!email || expenseScore === undefined) {
+      return res.status(400).json({
         success: false,
-        message: "Internal server error",
+        message: "Email and expenseScore are required",
       });
     }
-  });
 
+    const updatedUser = await User.findOneAndUpdate(
+      { userEmail: email },
+      { expenseScore },
+      { new: true }
+    );
 
-  router.put("/update-due-date", async (req, res) => {
-    try {
-      const { email,sharedWith, dueDate } = req.body;
-//we have to make sure dueDate format matches with what mongo db accepts
-console.log({email,sharedWith,dueDate})
-      if (!email || !dueDate) {
-        return res.status(400).json({
-          success: false,
-          message: "Email and  due date are required",
-        });
-      }
- 
-      const updatedUser = await Expense.findOneAndUpdate(
-        {
-          $and: [
-            { userEmail:email }, 
-            // {sharedWith: { $elemMatch: { email: sharedWith } } }
-            { "sharedWith.email": sharedWith } // shared with email sharedWith: { $elemMatch: { email: sharedWith } } 
-          ]
-        },
-        { dueDate: new Date(dueDate)}, 
-        { new: true } 
-      );
-      
-  
-    
-      if (!updatedUser) {
-        return res.status(404).json({
-          success: false,
-          message: "User not found",
-        });
-      }
-  
- 
-      res.status(200).json({
-        success: true,
-        message: "New DueDate added",
-        user: updatedUser,
-      });
-    } catch (error) {
-      console.error("Error updating due date:", error);
-      res.status(500).json({
+    if (!updatedUser) {
+      return res.status(404).json({
         success: false,
-        message: "Internal server error",
+        message: "User not found",
       });
     }
-  }); 
+
+    res.status(200).json({
+      success: true,
+      message: "Expense score updated successfully",
+      user: updatedUser,
+    });
+  } catch (error) {
+    console.error("Error updating expense score:", error);
+    res.status(500).json({
+      success: false,
+      message: "Internal server error",
+    });
+  }
+});
+
+router.put("/update-due-date", async (req, res) => {
+  try {
+    const { email, sharedWith, dueDate } = req.body;
+    //we have to make sure dueDate format matches with what mongo db accepts
+    console.log({ email, sharedWith, dueDate });
+    if (!email || !dueDate) {
+      return res.status(400).json({
+        success: false,
+        message: "Email and  due date are required",
+      });
+    }
+
+    const updatedUser = await Expense.findOneAndUpdate(
+      {
+        $and: [
+          { userEmail: email },
+          // {sharedWith: { $elemMatch: { email: sharedWith } } }
+          { "sharedWith.email": sharedWith }, // shared with email sharedWith: { $elemMatch: { email: sharedWith } }
+        ],
+      },
+      { dueDate: new Date(dueDate) },
+      { new: true }
+    );
+
+    if (!updatedUser) {
+      return res.status(404).json({
+        success: false,
+        message: "User not found",
+      });
+    }
+
+    res.status(200).json({
+      success: true,
+      message: "New DueDate added",
+      user: updatedUser,
+    });
+  } catch (error) {
+    console.error("Error updating due date:", error);
+    res.status(500).json({
+      success: false,
+      message: "Internal server error",
+    });
+  }
+});
 
 router.post("/", async (req, res) => {
-    try {
-        const { userEmail, title, amount, category, dueDate, description, sharedEmail,type,status } = req.body;
+  try {
+    const {
+      userEmail,
+      title,
+      amount,
+      category,
+      dueDate,
+      description,
+      sharedEmail,
+      type,
+      status,
+    } = req.body;
 
-        if (!userEmail || !title || !amount || !category || !dueDate) {
-            return res.status(400).json({
-                success: false,
-                message: "Missing required fields",
-            });
-        }
-
-        const newExpense = new Expense({
-            userEmail,
-            title,
-            amount,
-            category,
-            dueDate: new Date(dueDate),
-            description,
-            sharedWith:{
-              email:sharedEmail,
-              type,
-              status,
-              amount
-            },
-        });
-
-        const savedExpense = await newExpense.save();
-
-        res.status(201).json({
-            success: true,
-            message: "Expense added successfully",
-            expense: savedExpense,
-        });
-    } catch (error) {
-        console.error("Error adding expense:", error);
-        res.status(500).json({
-            success: false,
-            message: "Internal server error",
-        });
+    if (!userEmail || !title || !amount || !category || !dueDate) {
+      return res.status(400).json({
+        success: false,
+        message: "Missing required fields",
+      });
     }
+
+    const newExpense = new Expense({
+      userEmail,
+      title,
+      amount,
+      category,
+      dueDate: new Date(dueDate),
+      description,
+      sharedWith: {
+        email: sharedEmail,
+        type,
+        status,
+        amount,
+      },
+    });
+
+    const savedExpense = await newExpense.save();
+
+    res.status(201).json({
+      success: true,
+      message: "Expense added successfully",
+      expense: savedExpense,
+    });
+  } catch (error) {
+    console.error("Error adding expense:", error);
+    res.status(500).json({
+      success: false,
+      message: "Internal server error",
+    });
+  }
 });
 
 router.put("/updateStatus", async (req, res) => {
@@ -157,7 +161,9 @@ router.put("/updateStatus", async (req, res) => {
     }
 
     // Determine the type of the expense
-    const type = expense.sharedWith?.find((item) => item.email === sharedWith)?.type;
+    const type = expense.sharedWith?.find(
+      (item) => item.email === sharedWith
+    )?.type;
     if (!type) {
       return res.status(404).json({
         success: false,
@@ -172,7 +178,10 @@ router.put("/updateStatus", async (req, res) => {
 
       if (targetUser) {
         const penalty = targetUser.expenseScore * 0.05 || 5;
-        targetUser.expenseScore = Math.max(0, targetUser.expenseScore - penalty);
+        targetUser.expenseScore = Math.max(
+          0,
+          targetUser.expenseScore - penalty
+        );
         await targetUser.save();
       }
     }
@@ -259,122 +268,134 @@ router.delete("/deleteExpense", async (req, res) => {
   }
 });
 
-
 // GET - Fetch all expenses
 router.get("/", async (req, res) => {
-    try {
-        const expenses = await Expense.find();
-        res.status(200).json({
-            success: true,
-            expenses,
-        });
-    } catch (error) {
-        console.error("Error fetching expenses:", error);
-        res.status(500).json({
-            success: false,
-            message: "Internal server error",
-        });
-    }
+  try {
+    const expenses = await Expense.find();
+    res.status(200).json({
+      success: true,
+      expenses,
+    });
+  } catch (error) {
+    console.error("Error fetching expenses:", error);
+    res.status(500).json({
+      success: false,
+      message: "Internal server error",
+    });
+  }
 });
 
 router.get("/filterByEmail", async (req, res) => {
   try {
-      const { email } = req.query;
+    const { email, page } = req.query;
 
-    
-      if (!email) {
-          return res.status(400).json({
-              success: false,
-              message: "Email not recieved",
-          });
-      }
-
-   
-
-      // Query expenses based on status and type
-      const filteredExpenses = await Expense.find({
-          "userEmail":email
+    let pageNumber = parseInt(page) || 1;
+    let pageSize = 2;
+    let skip = (pageNumber - 1) * pageSize;
+    if (!email) {
+      return res.status(400).json({
+        success: false,
+        message: "Email not recieved",
       });
+    }
 
-      res.status(200).json({
-          success: true,
-          expenses: filteredExpenses,
-      });
+    const filteredExpenses = await Expense.find({
+      userEmail: email,
+    })
+      .sort({ createdAt: -1 })
+      .skip(skip)
+      .limit(pageSize);
+
+    const total = await Expense.countDocuments({ userEmail:email });
+    res.status(200).json({
+      success: true,
+      expenses: filteredExpenses,
+      totalPages: Math.ceil(total / pageSize),
+    });
   } catch (error) {
-      console.error("Error filtering expenses:", error);
-      res.status(500).json({
-          success: false,
-          message: "Internal server error",
-      });
+    console.error("Error filtering expenses:", error);
+    res.status(500).json({
+      success: false,
+      message: "Internal server error",
+    });
   }
 });
 // GET - Fetch expenses by status (Pending/Settled) and type (To Be Given/To Be Taken)
 
 router.get("/filter", async (req, res) => {
-    try {
-        const { status, type } = req.query;
+  try {
+    const { status, type } = req.query;
 
-        // Validate input
-        if (!status || !["Pending", "Settled"].includes(status)) {
-            return res.status(400).json({
-                success: false,
-                message: "Invalid or missing status (Pending/Settled)",
-            });
-        }
-
-        if (!type || !["To Be Taken", "To Be Given"].includes(type)) {
-            return res.status(400).json({
-                success: false,
-                message: "Invalid or missing type (To Be Taken/To Be Given)",
-            });
-        }
-
-        // Query expenses based on status and type
-        const filteredExpenses = await Expense.find({
-            "sharedWith.status": status,
-            "sharedWith.type": type,
-        });
-
-        res.status(200).json({
-            success: true,
-            expenses: filteredExpenses,
-        });
-    } catch (error) {
-        console.error("Error filtering expenses:", error);
-        res.status(500).json({
-            success: false,
-            message: "Internal server error",
-        });
+    // Validate input
+    if (!status || !["Pending", "Settled"].includes(status)) {
+      return res.status(400).json({
+        success: false,
+        message: "Invalid or missing status (Pending/Settled)",
+      });
     }
+
+    if (!type || !["To Be Taken", "To Be Given"].includes(type)) {
+      return res.status(400).json({
+        success: false,
+        message: "Invalid or missing type (To Be Taken/To Be Given)",
+      });
+    }
+
+    // Query expenses based on status and type
+    const filteredExpenses = await Expense.find({
+      "sharedWith.status": status,
+      "sharedWith.type": type,
+    });
+
+    res.status(200).json({
+      success: true,
+      expenses: filteredExpenses,
+    });
+  } catch (error) {
+    console.error("Error filtering expenses:", error);
+    res.status(500).json({
+      success: false,
+      message: "Internal server error",
+    });
+  }
 });
 
 router.get("/filterByCategory", async (req, res) => {
   try {
-      const { category } = req.query;
+    const { category } = req.query;
 
-      // Validate input
-      if (!category || !["Cafe Food", "Ordered Food", "Outside Food", "Groceries", "Munchies", "Others"].includes(category)) {
-          return res.status(400).json({
-              success: false,
-              message: "Invalid or missing category",
-          });
-      }
-
-      // Query expenses based on category
-      const categorizedExpenses = await Expense.find({ category });
-
-      res.status(200).json({
-          success: true,
-          expenses: categorizedExpenses,
+    // Validate input
+    if (
+      !category ||
+      ![
+        "Cafe Food",
+        "Ordered Food",
+        "Outside Food",
+        "Groceries",
+        "Munchies",
+        "Others",
+      ].includes(category)
+    ) {
+      return res.status(400).json({
+        success: false,
+        message: "Invalid or missing category",
       });
+    }
+
+    // Query expenses based on category
+    const categorizedExpenses = await Expense.find({ category });
+
+    res.status(200).json({
+      success: true,
+      expenses: categorizedExpenses,
+    });
   } catch (error) {
-      console.error("Error filtering expenses by category:", error);
-      res.status(500).json({
-          success: false,
-          message: "Internal server error",
-      });
+    console.error("Error filtering expenses by category:", error);
+    res.status(500).json({
+      success: false,
+      message: "Internal server error",
+    });
   }
 });
-
 
 export default router;

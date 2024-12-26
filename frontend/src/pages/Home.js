@@ -7,7 +7,6 @@ import RegisterPage from "./RegisterPage";
 
 import "./Home.css";
 import snowflakes from "../assets/snowflakes.png";
-import tree from "../assets/tree.png";
 
 import { atom, useRecoilState } from "recoil";
 import { useUserContext } from "./../components/context/userContext";
@@ -33,8 +32,8 @@ const Home = () => {
   return (
     <div className="container1 p-4 ">
       <div className="bg2">
-        {/* <img className="tree" src={tree} alt="" /> */}
-        {userDetails && userDetails.Email ? <p>HI {userDetails.name}</p> : ""}
+        
+        {userDetails && userDetails.Email ? <p>Hi {userDetails.name}</p> : ""}
 
         <img className="sf1" src={snowflakes} alt="" />
         <img className="sf sf2" src={snowflakes} alt="" />
@@ -44,10 +43,10 @@ const Home = () => {
         <h1 id="welcome">Welcome to Your</h1>
         <h1 id="name">Expense Tracker</h1>
 
-        <nav className="display ">
+        <nav className="display">
           {userDetails && userDetails.Email ? (
             <>
-              <button onClick={handleLogout} className="btn">
+              <button onClick={handleLogout} className="btn btn1">
                 Logout
               </button>
               <Link to="/dashboard" className="btn">
@@ -66,20 +65,6 @@ const Home = () => {
             </>
           )}
         </nav>
-
-        {/* <nav className="display mb-6">
-          {userDetails && userDetails.Email ? (
-            <button onClick={handleLogout}>Logout</button>
-          ) : (
-            <Link to="/login" className="btn">
-              Login
-            </Link>
-          )}
-          <h2>Don't have an account? Register below</h2>
-          <Link to="/register" className="btn">
-            Register
-          </Link>
-        </nav> */}
       </div>
 
       <Routes>

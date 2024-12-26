@@ -18,7 +18,8 @@ p {
     font-size: 50px;
     font-weight: bolder;
     letter-spacing: 10px;
-    margin: 60px 90px 60px;
+    margin-left: 90px;
+    margin-top: 80px;
 }
 
 h1 {
@@ -27,12 +28,7 @@ h1 {
     font-size: 50px;
     font-weight: 900;
     letter-spacing: 8px;
-    /* margin: 90px 90px 30px; */
     margin-left: 90px;
-}
-
-#welcome{
-    margin-top: 120px;
 }
 
 #name {
@@ -45,7 +41,7 @@ h1 {
     background-color: rgba(255, 255, 255, 0.738);
     box-shadow: 2px 2px 40px white;
     border-radius: 20px;
-    width: 100%;
+    width: 90%;
     /* Make it responsive */
     max-width: 1200px;
     /* Limit max width */
@@ -62,8 +58,9 @@ h1 {
     padding: 200px;
     position: absolute;
     top: -70px;
-    right: 0; /* Align to the right */
-    transform: none; /* Remove horizontal centering */
+    left: 50%;
+    transform: translateX(-50%);
+    /* Center horizontally */
 }
 
 .btn {
@@ -87,13 +84,8 @@ h1 {
 h2 {
     color: rgb(97, 94, 98);
     font-family: 'Times New Roman', Times, serif;
-}
-
-.tree {
-    position: absolute;
-    width: -90%;
-    left: -18%;
-    top: 32%;
+    margin-left: -35%;
+    margin-top: 10%;
 }
 
 .sf {
@@ -189,6 +181,8 @@ h2 {
 
     h2{
         font-size: 10px;
+        margin-left: -35%;
+        margin-top: 10%;
     }
 
     .display {
@@ -204,12 +198,6 @@ h2 {
         width: 80px;
         font-size: 15px;
         padding: 4px;
-    }
-
-    .tree {
-        width: 50%;
-        left: 25%;
-        top: 50%;
     }
 
     .sf,
@@ -235,7 +223,7 @@ h2 {
     }
 
     #name {
-        font-size: 40px;
+        font-size: 30px;
     }
 
     .bg2 {
