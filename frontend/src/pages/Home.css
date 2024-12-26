@@ -78,7 +78,7 @@ h1 {
 }
 
 .btn1{
-    margin-top: 150px;
+    margin-top: 220px;
 }
 
 h2 {
@@ -268,4 +268,3 @@ h2 {
 @media only screen and (min-width: 1025px) {
     /* No changes required as the base styles are already suited for large screens */
 }
-

@@ -52,12 +52,17 @@ const Home = () => {
               <Link to="/dashboard" className="btn">
                 Go to Dashboard
               </Link>
+
+              <Link to="/profile" className="btn">
+                Profile
+              </Link>
             </>
           ) : (
             <>
               <Link to="/login" className="btn btn1">
                 Login
               </Link>
+              <h2>Don't have an account? Register below</h2>
               <Link to="/register" className="btn">
                 Register
               </Link>
