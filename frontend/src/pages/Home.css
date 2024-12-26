@@ -62,9 +62,8 @@ h1 {
     padding: 200px;
     position: absolute;
     top: -70px;
-    left: 50%;
-    transform: translateX(-50%);
-    /* Center horizontally */
+    right: 0; /* Align to the right */
+    transform: none; /* Remove horizontal centering */
 }
 
 .btn {

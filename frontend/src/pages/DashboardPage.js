@@ -30,7 +30,7 @@ const DashboardPage = () => {
       <img className="absolute w-12 h-12 animate-float-delay sf4" src={snowflakes} alt="snowflake" />
 
       {/* Content Card */}
-      <div className="bg-white bg-opacity-80 rounded-lg shadow-lg p-8 w-11/12 md:w-2/3 lg:w-1/2 relative z-10">
+      <div className="bg-white bg-opacity-45 rounded-lg shadow-lg p-8 w-11/12 md:w-2/3 lg:w-1/2 relative z-10">
         {loading ? (
           <div className="text-lg text-center">Loading..</div>
         ) : (

@@ -44,7 +44,7 @@ const Home = () => {
         <h1 id="welcome">Welcome to Your</h1>
         <h1 id="name">Expense Tracker</h1>
 
-        <nav className="display">
+        <nav className="display ">
           {userDetails && userDetails.Email ? (
             <>
               <button onClick={handleLogout} className="btn">
