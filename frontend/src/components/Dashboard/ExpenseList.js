@@ -3,7 +3,7 @@ import { fetchExpenses } from "../../utils/api";
 import { useUserContext } from "./../context/userContext";
 import { API } from "./../../utils/api";
 import toast, { Toaster } from "react-hot-toast";
-
+import useSWR from "swr";
 const ExpenseList = ({ mnExpense }) => {
   const { userDetails, loading } = useUserContext();
   const [expenses, setExpenses] = useState([]);
@@ -13,7 +13,8 @@ const ExpenseList = ({ mnExpense }) => {
   const [newStatus, setNewStatus] = useState("");
   const [selectedCategories, setSelectedCategories] = useState([]);
   const [selectedStatuses, setSelectedStatuses] = useState([]);
-
+  const [pageNumber, setPageNumber] = useState(1);
+  const [totalPages, setTotalPages] = useState(0);
   const categories = [
     "Cafe Food",
     "Groceries",
@@ -26,9 +27,12 @@ const ExpenseList = ({ mnExpense }) => {
   const getExpenses = async () => {
     try {
       const fetchExpensesByEmail = () =>
-        API.get(`/api/filterByEmail/?email=${userDetails.Email}`);
+        API.get(
+          `/api/filterByEmail/?email=${userDetails.Email}&page=${pageNumber}`
+        );
       const { data } = await fetchExpensesByEmail();
       setExpenses(data.expenses);
+      setTotalPages(data.totalPages);
     } catch (err) {
       toast("Failed to fetch expenses", { icon: "⛑" });
     }
@@ -38,7 +42,7 @@ const ExpenseList = ({ mnExpense }) => {
     if (!loading && userDetails) {
       getExpenses();
     }
-  }, [mnExpense]);
+  }, [mnExpense, pageNumber]);
 
   const handleCategoryChange = (value) => {
     setSelectedCategories((prev) =>
@@ -180,32 +184,34 @@ const ExpenseList = ({ mnExpense }) => {
             </div>
           </div>
         </div>
-        <h2 className="text-lg font-bold mt-8">Expenses</h2>
+        <h2 className="text-lg font-bold mt-8 mb-2">Expenses</h2>
         <ul className="grid grid-cols-1 md:grid-cols-2 gap-4">
           {filteredData.map((expense, index) => (
             <li
               key={expense._id}
               className="py-2 bg-gray-100 p-4 rounded-xl border border-blue-200"
             >
-              <span>
-                {expense.title} - {expense.amount}rs. <br />
-                Category: {expense.category}
-              </span>
-              <br />
-              <button
-                className="my-2 px-2 py-1 rounded ml-2 text-red-500 hover:text-red-700"
-                onClick={() => deleteExpense(expense._id)}
-              >
-                ❌
-              </button>
+              <div className="flex justify-between">
+                <span>
+                  {expense.title} - {expense.amount}rs. <br />
+                  Category: {expense.category}
+                </span>
+                <br />
+                <span
+                  className="my-2 px-2 py-1 rounded ml-2 text-red-500 hover:text-red-700"
+                  onClick={() => deleteExpense(expense._id)}
+                >
+                  ❌
+                </span>
+              </div>
               <ul>
                 {expense.sharedWith.map((sharedWith) => (
-                  <li key={sharedWith._id}>
-                    <span>Shared With: {sharedWith.email}</span>
-                    <br />
-                    <span className="mx-2 font-medium">
-                      Type: {sharedWith.type}
+                  <li key={sharedWith._id} className="text-sm md:text-base">
+                    <span className="mr-2 break-words">
+                      Shared With: {sharedWith.email}
                     </span>
+                    <br />
+                    <span className="font-medium">Type: {sharedWith.type}</span>
                     <br />
                     <span className="pr-2">Status: {sharedWith.status}</span>
                     <br />
@@ -216,7 +222,9 @@ const ExpenseList = ({ mnExpense }) => {
                         month: "2-digit",
                         year: "2-digit",
                       })}
-                      <br />
+                    </span>
+                    <br />
+                    <div className="flex justify-between bottom-0">
                       {editIndex === index ? (
                         <div className="mt-2 flex flex-col items-start space-y-2">
                           <input
@@ -229,7 +237,7 @@ const ExpenseList = ({ mnExpense }) => {
                             onClick={() =>
                               updateDueDate(sharedWith.email, expense._id)
                             }
-                            className="px-4 py-2 text-white bg-blue-500 rounded hover:bg-blue-600"
+                            className="px-4 py-2 text-white text-sm bg-green-500 rounded hover:bg-green-600"
                           >
                             Update
                           </button>
@@ -237,7 +245,7 @@ const ExpenseList = ({ mnExpense }) => {
                       ) : (
                         <button
                           onClick={() => setEditIndex(index)}
-                          className="mt-2 px-2 py-1 text-white bg-blue-500 rounded hover:bg-yellow-600"
+                          className=" mt-2 px-2 py-1 text-white text-sm bg-green-500 rounded hover:bg-red-600"
                         >
                           Update Due Date
                         </button>
@@ -258,7 +266,7 @@ const ExpenseList = ({ mnExpense }) => {
                             onClick={() =>
                               updateStatus(sharedWith.email, expense._id)
                             }
-                            className="px-4 py-2 text-white bg-blue-500 rounded hover:bg-blue-600"
+                            className=" px-4 py-2 text-sm text-white bg-blue-500 rounded hover:bg-blue-600"
                           >
                             Update
                           </button>
@@ -266,18 +274,49 @@ const ExpenseList = ({ mnExpense }) => {
                       ) : (
                         <button
                           onClick={() => setEditStatus(index)}
-                          className="mt-2 px-2 py-1 text-white bg-blue-500 rounded hover:bg-yellow-600 ml-2"
+                          className="mt-2 px-2 py-1 text-sm text-white bg-blue-500 rounded hover:bg-blue-600 ml-2"
                         >
                           Update Status
                         </button>
                       )}
-                    </span>
+                    </div>
                   </li>
                 ))}
               </ul>
             </li>
           ))}
         </ul>
+      </div>
+      <div className={`flex items-center justify-evenly mt-4 md:mt-12`}>
+        <button
+          className={`text-blue-700 font-bold  ${
+            pageNumber <= 1 ? "cursor-not-allowed" : ""
+          }`}
+          disabled={pageNumber <= 1}
+          onClick={() => {
+            if (pageNumber > 1) {
+              setPageNumber((prev) => prev - 1);
+              console.log({totalPages})
+            }
+          }}
+        >
+          Previous
+        </button>
+
+        <button
+          className={`text-blue-700 font-bold ${
+            pageNumber >= totalPages ? "cursor-not-allowed" : ""
+          }`}
+          disabled={pageNumber >= totalPages}
+          onClick={() => {
+            if (pageNumber <= totalPages) {
+              setPageNumber((prev) => prev + 1);
+              console.log({totalPages},pageNumber)
+            }
+          }}
+        >
+          Next
+        </button>
       </div>
     </div>
   );
