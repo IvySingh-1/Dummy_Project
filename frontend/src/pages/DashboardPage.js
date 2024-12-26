@@ -39,9 +39,9 @@ const DashboardPage = () => {
               <p className="text-xl font-bold mb-4 text-center">
                 Hi, {userDetails.name}
               </p>
-            ) : null}
+            ) : ""}
             <AddExpense />
-            <ExpenseList />
+            {/* <ExpenseList /> */}
           </>
         )}
       </div>

@@ -2,7 +2,8 @@ import { useEffect, useState } from "react";
 import { fetchExpenses } from "../../utils/api";
 import { useUserContext } from "./../context/userContext";
 import { API } from "./../../utils/api";
-const ExpenseList = () => {
+import toast, { Toaster } from "react-hot-toast";
+const ExpenseList = ({mnExpense}) => {
   const { userDetails, loading } = useUserContext();
   const [expenses, setExpenses] = useState([]);
   const [editIndex, setEditIndex] = useState(null); // which expense is being edited
@@ -27,7 +28,10 @@ const ExpenseList = () => {
       const { data } = await fetchExpensesByEmail();
       setExpenses(data.expenses);
     } catch (err) {
-      alert("Failed to fetch expenses");
+      toast('Failed to fetch expenses', {
+        icon: '⛑',
+      });
+      // alert("Failed to fetch expenses");
     }
   };
 
@@ -35,7 +39,7 @@ const ExpenseList = () => {
     if (!loading && userDetails) {
       getExpenses();
     }
-  }, []);
+  }, [mnExpense]);
 
   //Filters
   const handleCategoryChange = (value) => {
@@ -95,11 +99,17 @@ const ExpenseList = () => {
       const data = await response.json();
       console.log("Due date updated successfully:", data);
       setEditIndex(-3);
-      alert("Due date updated successfully!");
+      toast('Due date updated successfully!', {
+        icon: '🤶',
+      });
+      // alert("Due date updated successfully!");
       getExpenses();
     } catch (error) {
       console.error("Error updating due date:", error);
-      alert("Failed to update due date. Please try again.");
+      toast('Failed to update due date. Please try again.', {
+        icon: '🏮',
+      });
+      // alert("Failed to update due date. Please try again.");
     }
   };
   const updateStatus = async (sharedEmail, expense_id) => {
@@ -126,11 +136,17 @@ const ExpenseList = () => {
       const data = await response.json();
       console.log("Status updated successfully:", data);
       setEditStatus(-3);
-      alert("Status updated successfully!");
+      toast('Status updated successfully!', {
+        icon: '🤶',
+      });
+      // alert("Status updated successfully!");
       getExpenses();
     } catch (error) {
       console.error("Error updating Status:", error);
-      alert("Failed to update Status. Please try again.");
+      toast('Failed to update Status. Please try again.', {
+        icon: '🤬',
+      });
+      // alert("Failed to update Status. Please try again.");
     }
   };
   const deleteExpense = async ( expense_id) => {
@@ -154,15 +170,22 @@ const ExpenseList = () => {
 
       const data = await response.json();
       console.log("Expense deleted successfully:", data);
-      alert("Expense deleted successfully!");
+      toast('Expense deleted successfully!', {
+        icon: '🤶',
+      });
+      // alert("Expense deleted successfully!");
       getExpenses();
     } catch (error) {
       console.error("Error deleting expense:", error);
-      alert("Failed deleting expense. Please try again.");
+      toast('Failed deleting expense. Please try again.', {
+        icon: '🤬',
+      });
+      // alert("Failed deleting expense. Please try again.");
     }
   };
   return (
     <div className="my-4">
+         <div><Toaster/></div>
       <div>
         <div className="flex flex-wrap gap-4 justify-center mb-6">
           {/* Categories */}

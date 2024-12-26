@@ -1,9 +1,12 @@
 import { useState } from "react";
 import { addExpense } from "../../utils/api";
 import { useUserContext } from "./../context/userContext";
+import ExpenseList from "./ExpenseList";
+import toast, { Toaster } from "react-hot-toast";
 const AddExpense = ({ onExpenseAdded }) => {
   const { userDetails } = useUserContext();
   let userEmail = userDetails.Email;
+  const [mnExpense, setMnExpense] = useState(false);
   const [formData, setFormData] = useState({
     userEmail,
     sharedEmail: "",
@@ -29,15 +32,41 @@ const AddExpense = ({ onExpenseAdded }) => {
     try {
       const res = await addExpense(formData);
       console.log(res);
-      if (res.status === 201) alert("Expense added");
-      // onExpenseAdded(data);
+      if (res.status === 201) {
+        // alert("Expense added");
+toast('Expense Added', {
+  icon: '❄❄❄',
+});
+        setFormData({
+          userEmail,
+          sharedEmail: "",
+          name: "",
+          amount: "",
+          dueDate: "",
+          title: "",
+          description: "",
+          category: "",
+          type: "",
+          status: "",
+        });
+        // onExpenseAdded(data);
+        if (mnExpense) {
+          setMnExpense(false);
+        } else {
+          setMnExpense(true);
+        }
+      }
     } catch (err) {
-      alert(err.response?.data?.message || "Failed to add expense");
+      toast(`${err.response?.data?.message || "Failed to add expense"}`, {
+        icon: '⛑'
+      });
+      // alert(err.response?.data?.message || "Failed to add expense");
     }
   };
 
   return (
     <div className="">
+      <div><Toaster/></div>
       <form onSubmit={handleSubmit} className="bg-gray-100 p-4 rounded mx-4 ">
         <h2 className="text-lg font-bold mb-4">Add Expense</h2>
         <input
@@ -116,6 +145,7 @@ const AddExpense = ({ onExpenseAdded }) => {
           Add
         </button>
       </form>
+      <ExpenseList mnExpense={mnExpense} />
     </div>
   );
 };
