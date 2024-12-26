@@ -2,7 +2,7 @@ import { useState } from "react";
 import { registerUser } from "./../../utils/api";
 import { useNavigate } from "react-router-dom";
 import snowflakes from "../../assets/snowflakes.png";
-
+import toast, { Toaster } from "react-hot-toast";
 const Register = () => {
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
@@ -13,20 +13,28 @@ const Register = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     if (password !== confirmPassword) {
-      alert("Passwords do not match");
+      toast('Passwords do not match', {
+        icon: '➕',
+      });
       return;
     }
     try {
       await registerUser({ name, email, password });
-      alert("Registration successful");
+      toast('Registration successful', {
+        icon: '🎄',
+      });
       navigate("/dashboard");
     } catch (err) {
-      alert(err.response?.data?.message || "Registration failed");
+      toast(`${err.response?.data?.message || "Registration failed"}`, {
+        icon: '⛑'
+      });
+      // alert(err.response?.data?.message || "Registration failed");
     }
   };
 
   return (
     <div>
+        <div><Toaster/></div>
       <img className="sf1" src={snowflakes} alt="" />
             <img className="sf sf2" src={snowflakes} alt="" />
             <img className="sf sf3" src={snowflakes} alt="" />

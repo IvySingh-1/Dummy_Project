@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { filterExpenses } from "../utils/api";
-
+import toast, { Toaster } from "react-hot-toast";
 const ExpenseFilter = ({ onFilter }) => {
   const [status, setStatus] = useState("");
   const [type, setType] = useState("");
@@ -11,11 +11,17 @@ const ExpenseFilter = ({ onFilter }) => {
       const { data } = await filterExpenses(status, type);
       onFilter(data.expenses); // Pass filtered expenses to the parent component
     } catch (err) {
-      alert(err.response?.data?.message || "Failed to filter expenses");
+      toast(`${err.response?.data?.message || "Failed to filter expenses"}`, {
+        icon: '⛑'
+      });
+      // alert(err.response?.data?.message || "Failed to filter expenses");
     }
   };
 
   return (
+    <div>
+       <div><Toaster/></div>
+  
     <form onSubmit={handleFilter} className="bg-gray-100 p-4 rounded mb-4">
       <h2 className="text-lg font-bold mb-4">Filter Expenses</h2>
       <div className="mb-4">
@@ -50,6 +56,7 @@ const ExpenseFilter = ({ onFilter }) => {
       </div>
       <button className="bg-blue-500 text-white px-4 py-2 rounded">Filter</button>
     </form>
+    </div>
   );
 };
 
