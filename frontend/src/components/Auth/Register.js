@@ -3,6 +3,7 @@ import { registerUser } from "./../../utils/api";
 import { useNavigate } from "react-router-dom";
 import snowflakes from "../../assets/snowflakes.png";
 import toast, { Toaster } from "react-hot-toast";
+import "./Register.css";
 const Register = () => {
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
@@ -13,20 +14,20 @@ const Register = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     if (password !== confirmPassword) {
-      toast('Passwords do not match', {
-        icon: '➕',
+      toast("Passwords do not match", {
+        icon: "➕",
       });
       return;
     }
     try {
       await registerUser({ name, email, password });
-      toast('Registration successful', {
-        icon: '🎄',
+      toast("Registration successful", {
+        icon: "🎄",
       });
       navigate("/dashboard");
     } catch (err) {
       toast(`${err.response?.data?.message || "Registration failed"}`, {
-        icon: '⛑'
+        icon: "⛑",
       });
       // alert(err.response?.data?.message || "Registration failed");
     }
@@ -34,43 +35,45 @@ const Register = () => {
 
   return (
     <div>
-        <div><Toaster/></div>
+      <div>
+        <Toaster />
+      </div>
       <img className="sf1" src={snowflakes} alt="" />
-            <img className="sf sf2" src={snowflakes} alt="" />
-            <img className="sf sf3" src={snowflakes} alt="" />
-            <img className="sf sf4" src={snowflakes} alt="" />
-    <form onSubmit={handleSubmit} className="max-w-md mx-auto p-4 bg-gray-100 mt-10">
-      <h2 className="text-xl font-bold mb-4">Register</h2>
-      <input
-        type="text"
-        placeholder="Name"
-        className="border w-full p-2 mb-4"
-        value={name}
-        onChange={(e) => setName(e.target.value)}
-      />
-      <input
-        type="email"
-        placeholder="Email"
-        className="border w-full p-2 mb-4"
-        value={email}
-        onChange={(e) => setEmail(e.target.value)}
-      />
-      <input
-        type="password"
-        placeholder="Password"
-        className="border w-full p-2 mb-4"
-        value={password}
-        onChange={(e) => setPassword(e.target.value)}
-      />
-      <input
-        type="password"
-        placeholder="Confirm Password"
-        className="border w-full p-2 mb-4"
-        value={confirmPassword}
-        onChange={(e) => setConfirmPassword(e.target.value)}
-      />
-      <button className="btn bg-blue-500 text-white px-4 py-2 rounded w-full">Register</button>
-    </form>
+      <img className="sf sf2" src={snowflakes} alt="" />
+      <img className="sf sf3" src={snowflakes} alt="" />
+      <img className="sf sf4" src={snowflakes} alt="" />
+      <form onSubmit={handleSubmit} className="form-bg register">
+        <h2 className="h2-login mt-1">Register</h2>
+        <input
+          type="text"
+          placeholder="Name"
+          className="input-box"
+          value={name}
+          onChange={(e) => setName(e.target.value)}
+        />
+        <input
+          type="email"
+          placeholder="Email"
+          className="input-box"
+          value={email}
+          onChange={(e) => setEmail(e.target.value)}
+        />
+        <input
+          type="password"
+          placeholder="Password"
+          className="input-box"
+          value={password}
+          onChange={(e) => setPassword(e.target.value)}
+        />
+        <input
+          type="password"
+          placeholder="Confirm Password"
+          className="input-box"
+          value={confirmPassword}
+          onChange={(e) => setConfirmPassword(e.target.value)}
+        />
+        <button className="btn btn2 btn3">Register</button>
+      </form>
     </div>
   );
 };

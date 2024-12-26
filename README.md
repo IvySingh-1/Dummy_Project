@@ -76,14 +76,10 @@ cd ../server
 - **Install the necessary dependencies:** 
 npm install
 
-- **Create a .env file in the server directory and add your MongoDB URI and JWT secret:**
-mongoURL  =  mongodb+srv://admin:admin2025@expensetracker.d4xpn.mongodb.net/?retryWrites=true&w=majority&appName=ExpenseTracker
-JWT_SECRET = "JWT_SECRET"
-
 - **Start the backend server:**
 npm start
 
-- The backend should now be running at http://localhost:5000.
+- The backend should now be running at http://localhost:3001.
 
 ### Full Stack
 Now, your full stack application should be up and running locally. Open your browser and navigate to http://localhost:3000 to interact with the Expense Tracker.
