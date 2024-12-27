@@ -45,18 +45,18 @@ const Home = () => {
 
         <nav className="display">
           {userDetails && userDetails.Email ? (
-            <>
-              <button onClick={handleLogout} className="btn btn1">
+            <div className="flex justify-center items-center my-4">
+              <button onClick={handleLogout} className="btn btn1 mx-2">
                 Logout
               </button>
-              <Link to="/dashboard" className="btn">
+              <Link to="/dashboard" className="btn btn1 w-fit h-fit mr-2">
                 Go to Dashboard
               </Link>
 
-              <Link to="/profile" className="btn">
+              <Link to="/profile" className="btn btn1 w-fit h-fit">
                 Profile
               </Link>
-            </>
+            </div>
           ) : (
             <>
               <Link to="/login" className="btn btn1">

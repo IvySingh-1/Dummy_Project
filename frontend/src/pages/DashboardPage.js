@@ -23,6 +23,7 @@ const DashboardPage = () => {
         backgroundImage: `url(${backgroundImage})`,
       }}
     >
+     
       {/* Animated Snowflakes */}
       <img className="absolute w-12 h-12 animate-float sf1" src={snowflakes} alt="snowflake" />
       <img className="absolute w-12 h-12 animate-float-delay sf2" src={snowflakes} alt="snowflake" />
@@ -40,6 +41,8 @@ const DashboardPage = () => {
                 Hi, {userDetails.name}
               </p>
             ) : ""}
+          
+             <button className="font-bold w-12 h-12 bg-gray-100 rounded-md w-fit h-fit p-2 my-2 opacity-75 btn" onClick={()=>navigate("/")}>Home</button>
             <AddExpense />
             {/* <ExpenseList /> */}
           </>

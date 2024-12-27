@@ -18,6 +18,7 @@ const AddExpense = ({ onExpenseAdded }) => {
     category: "",
     type: "",
     status: "",
+    typeN: "",
   });
 
   const handleChange = (e) => {
@@ -48,6 +49,7 @@ const AddExpense = ({ onExpenseAdded }) => {
           category: "",
           type: "",
           status: "",
+          typeN: "",
         });
         // onExpenseAdded(data);
         if (mnExpense) {
@@ -75,7 +77,7 @@ const AddExpense = ({ onExpenseAdded }) => {
             onSubmit={handleSubmit}
             className="bg-gray-100 p-4 md:mx-4  border-4 border-blue-500 rounded-xl shadow-xl  opacity-75"
           >
-           <h2 className="text-lg font-bold mb-4">Add Expense</h2> {/*not working */}
+            <h2 className="text-lg font-bold mb-4 ml-1 mt-1">Add Expense</h2> 
             <input
               type="text"
               placeholder="Title"
@@ -129,6 +131,16 @@ const AddExpense = ({ onExpenseAdded }) => {
               <option value="Other">Other</option>
             </select>
             <select
+              value={formData.typeN}
+              onChange={handleChange}
+              name="typeN"
+              className="border w-full p-2 mb-4"
+            >
+              <option value="">Select Expense Type</option>
+              <option value="Naughty">Naughty</option>
+              <option value="Nice">Nice</option>
+            </select>
+            <select
               value={formData.type}
               onChange={handleChange}
               name="type"
@@ -138,6 +150,7 @@ const AddExpense = ({ onExpenseAdded }) => {
               <option value="To be Taken">To be Taken</option>
               <option value="To be Given">To be Given</option>
             </select>
+        
             <select
               value={formData.status}
               onChange={handleChange}
@@ -149,7 +162,7 @@ const AddExpense = ({ onExpenseAdded }) => {
               <option value="Settled">Settled</option>
             </select>
             <button className="bg-blue-500 text-white px-4 py-2 rounded">
-              Add
+              Create
             </button>
           </form>
         </div>

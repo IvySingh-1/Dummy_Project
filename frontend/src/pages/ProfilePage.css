@@ -1,9 +1,11 @@
 .container2 {
     background-image: url("../../src/assets/bg.png");
-    height: 100vh;
+    min-height: 120vh;
+    /* margin-bottom: 20px; */
     background-size: cover;
     background-position: center;
     background-repeat: no-repeat;
+    padding-bottom: 20px;
 }
 
 h1 {
