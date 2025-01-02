@@ -78,7 +78,7 @@ const ExpenseList = ({ mnExpense }) => {
   const updateDueDate = async (sharedEmail, expense_id) => {
     try {
       const response = await fetch(
-        "https://expense-tracker-backend-h1vd.onrender.com/api/update-due-date",
+        "http://localhost:3001/api/update-due-date",
         {
           method: "PUT",
           headers: { "Content-Type": "application/json" },
@@ -104,7 +104,7 @@ const ExpenseList = ({ mnExpense }) => {
 
   const updateStatus = async (sharedEmail, expense_id) => {
     try {
-      const response = await fetch("https://expense-tracker-backend-h1vd.onrender.com/api/updateStatus", {
+      const response = await fetch("http://localhost:3001/api/updateStatus", {
         method: "PUT",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
@@ -128,7 +128,7 @@ const ExpenseList = ({ mnExpense }) => {
 
   const deleteExpense = async (expense_id) => {
     try {
-      const response = await fetch("https://expense-tracker-backend-h1vd.onrender.com/api/deleteExpense", {
+      const response = await fetch("http://localhost:3001/api/deleteExpense", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
