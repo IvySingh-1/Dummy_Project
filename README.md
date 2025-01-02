@@ -10,8 +10,6 @@
 - **Expense Management**: Add, edit, and delete expense records with customizable categories.
 - **Categories**: Organize expenses by categories such as Food, Transportation, Utilities, etc.
 - **Date Range Filters**: Filter expenses by a selected date range.
-- **Real-Time Analytics**: View visual reports on spending trends using charts.
-- **Export Data**: Export expenses as CSV for offline tracking and analysis.
 - **Responsive Design**: Fully responsive UI optimized for both desktop and mobile devices.
 
 ---
@@ -60,7 +58,7 @@ cd expense-tracker
 cd client
 
 - **Install the necessary dependencies:**
-npm install
+npm i
 
 - **Start the frontend server:**
 npm start
